@@ -27,26 +27,26 @@ const Login = () => {
   }
 
   function handleSubmit() {
-    // const trimmedEmail = mail.trim();
-    // const trimmedPassword = password.trim();
-    // const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
+    const trimmedEmail = mail.trim();
+    const trimmedPassword = password.trim();
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
 
-    // // Simple validation for empty fields
-    // if (!trimmedEmail) {
-    //   alert("Please enter your email.");
-    //   return;
-    // }
-    // if(!emailPattern.test(trimmedEmail)){
-    //   alert("Please Enter a Valid email address")
-    //   return;
-    // }
-    // if (!trimmedPassword) {
-    //   alert("Please enter your password.");
-    //   return;
-    // }
+    // Simple validation for empty fields
+    if (!trimmedEmail) {
+      alert("Please enter your email.");
+      return;
+    }
+    if(!emailPattern.test(trimmedEmail)){
+      alert("Please Enter a Valid email address")
+      return;
+    }
+    if (!trimmedPassword) {
+      alert("Please enter your password.");
+      return;
+    }
 
-    // const newUser = { email: trimmedEmail, password: trimmedPassword };
-    // setData([...data, { id: data.length + 1, ...newUser }]);
+    const newUser = { email: trimmedEmail, password: trimmedPassword };
+    setData([...data, { id: data.length + 1, ...newUser }]);
     navigate('/home')
   }
   function navigatetosignin(){
