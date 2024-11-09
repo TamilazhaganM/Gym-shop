@@ -1,0 +1,76 @@
+#methods h1{
+    margin: 300px auto;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 4rem;
+}
+.methodsimg{
+    margin-right: 5%;
+}
+.methodsSetup{
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    /* overflow-x: auto; */
+    flex-direction: row;
+}
+.methodsWrapper{
+    display: block;
+    margin-bottom: 100px;
+    height: 400px;
+    position: relative;
+    background-color: #fff;
+    z-index: -1;
+}
+.methodsWrapper::before{
+    content: '';
+    width: 105%;
+    height: 400px;
+    background-color: #222831;
+    position: absolute;
+    top: -120px;
+    left: -280px;
+    z-index: -1;
+}
+.image4{
+height: 300px;
+}
+.cardTitle{
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+.card-Texts{
+    color: black;
+    text-align: center;
+    font-style: italic;
+
+}
+@media (max-width: 1115px) {
+    #methods{
+        margin-top: -350px;
+    }
+  
+    .methodsWrapper::before{
+        content: '';
+        width: 100%;
+        height: 400px;
+        background-color: #222831;
+        position: absolute;
+        top: -120px;
+        left: 0px;
+        z-index: -1;
+    }
+    .methodsSetup {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+    .methodsSetup {
+      flex-direction: column;
+      align-items: center;   
+    }
+    .methodsimg:not(:first-child) .image4 {
+        display: none;
+      }
+}

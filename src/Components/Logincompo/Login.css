@@ -1,0 +1,130 @@
+@import url("https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=Permanent+Marker&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+/* 
+input:focus, .form-control:focus {
+  outline: none;
+  box-shadow: none ;
+  border-color: black ; 
+} */
+
+#Loginsection {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  background-image: url(../../assets/loginimg4.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+}
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  border-radius: 5px;
+  margin: 20px auto;
+  height: 400px;
+  max-height: 100vh;
+  max-width: 80%;
+  /* box-shadow: 0px 0px 15px 5px black; */
+  /* border: 2px solid; */
+}
+.container,
+.row {
+  height: 100%;
+}
+.welcomesection {
+  font-weight: 400;
+  font-style: normal;
+  color: white;
+  background-color: transparent;
+  /* margin-top: -70px; */
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.welcomesection h1 {
+  text-align: center;
+  font-family: "Permanent Marker", cursive;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 4rem;
+  text-shadow: 2px 2px 5px white;
+}
+.welcomesection p {
+  width: 100%;
+  margin-top: 30px;
+  font-size: 2.5rem;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
+}
+.inputsection {
+  height: auto;
+  /* margin-top: -70px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+input {
+  text-align: center;
+}
+.inputsection h1 {
+  margin-top: 30px;
+  color: white;
+}
+.inputsection p {
+  color: white;
+  font-size: 1.5rem;
+}
+.inputs {
+  margin: 50px auto;
+  max-width: fit-content;
+}
+.inputfield {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #fa8109;
+  color: white;
+  font-size: 1.5em;
+}
+.inputfield:focus {
+  border-bottom: 2px solid white;
+}
+.inputfield2 {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #fa8109;
+  color: white;
+  font-size: 1.5em;
+  /* margin-left:10px; */
+}
+.inputfield2:focus {
+  border-bottom: 2px solid white;
+}
+input::placeholder {
+  color: white;
+  text-align: center;
+}
+.loginbtn {
+  margin-bottom: 50px;
+  background-color: #fa8109;
+  color: black;
+  border: none;
+}
+.linkitem {
+  color: #fa8109;
+  text-decoration: white;
+  cursor: pointer;
+}
+.eyebtn2 {
+  position: absolute;
+  right: 7px;
+  top: 7px;
+  color: rgb(161, 160, 160);
+  background-color: transparent;
+  cursor: pointer;
+}

@@ -1,0 +1,185 @@
+#contact h1{
+    margin: 300px auto;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 4rem;
+}
+.contactimg{
+    width: 70%;
+    height: 500px;
+
+}
+.contactWrapper{
+    display: block;
+    height: 400px;
+    position: relative;
+    background-color: #fff;
+    /* z-index: -1; */
+}
+.contactWrapper::after{
+    content: '';
+    width: 40%;
+    height: 500px;
+    background-color: #222831;
+    position: absolute;
+    top: 100px;
+    left: 600px;
+    z-index: 1;
+}
+.form{
+    width:350px ;
+}
+.form h3{
+    color: #fa8109;
+}
+.input {
+    border-bottom: 2px #fa8109 solid;
+    background-color: transparent;
+    border-radius: 10px;
+}
+.input:focus{
+    outline: none;
+    border: none;
+}
+.overlayContact{
+    position: absolute;
+    top: 150px;
+    left: 660px;
+    width: 30%;
+    height:100% ;
+    text-align: center;
+    font-family: "Bebas Neue", sans-serif;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 10;
+}
+.submitbtn{
+    background-color: #222831;
+    color: white;
+    border: white 2px solid ;
+    width: 80%;
+}
+.submitbtn:hover{
+    background-color: white;
+    color: #222831;
+    border: black 2px solid;
+}
+.download{
+    color: white;
+    background-color: #222831;
+    position: relative;
+    width: 500px;
+    height: 500px;
+    top: 200px;
+    left: 100px;
+    margin: 200px 0px;
+}
+.download::before{
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 500px;
+    z-index: -1;
+    background-color: #fa8109;
+    top: -100px;
+    left: 400px;
+}
+.downloadimg{
+    display: block;
+    width: 450px;
+    margin: 10px auto;
+}
+.downloadimg2{
+    width: 350px;
+    height: 350px;
+    position: absolute;
+    bottom: 180px;
+    left:550px ;
+}
+.download h3{
+    font-weight: bolder;
+    font-size: xx-large;
+    padding: 50px;
+    text-align: center;
+}
+.download p{
+color: white;
+width: 70%;
+margin: 0px auto;
+text-align: center;
+}
+
+@media (max-width:1115px) {
+   #contact{
+    margin-top: 500px;
+    margin-bottom: 100px;
+   }
+   .contactimg{
+    width: 100%;
+    margin: -200px auto;
+    height: 500px;
+}
+.contactWrapper::after{
+    display: none;
+    content: '';
+    width: 100%;
+    height: 500px;
+    background-color: #222831;
+    position: absolute;
+    top: 300px;
+    left: 00px;
+    z-index: 1;
+}
+.overlayContact{
+    position: absolute;
+    top: 320px;
+    left: 150px;
+    width: 70%;
+    height:100% ;
+    text-align: center;
+    font-family: "Bebas Neue", sans-serif;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 10;
+}
+.download{
+    color: black;
+    background-color: #f5a85c;
+    position: relative;
+    width: 100%;
+    height: 550px;
+    top: 200px;
+    left: 0px;
+    /* margin: 200px 0px 100px; */
+}
+.download::before{
+    display: none;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 500px;
+    z-index: -1;
+    background-color: #fa8109;
+    top: 300px;
+    left: 0px;
+}
+.downloadimg2{
+    width: 300px;
+    max-width: 100%;
+    height: 150px;
+    display: none;
+    margin: 20px auto;
+    position: absolute;
+    bottom: 0px;
+    left:25% ;
+}
+.downloadimg{
+    display: block;
+    width: 350px;
+    max-width: 100%;
+    height: 200px;
+    margin: 100px auto;
+}
+}

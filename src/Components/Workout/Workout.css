@@ -1,0 +1,62 @@
+#workOutPage{
+    margin-bottom: 700px;
+}
+h2{
+    text-align: center;
+    font-size:4rem;
+    font-weight: bold;
+    margin-bottom: 150px;
+}
+.workoutWrapper{
+    display: block;
+    height: 400px;
+    position: relative;
+    background-color: #fff;
+    z-index: -1;
+}
+.workoutWrapper::before{
+    content: '';
+    width: 600px;
+    height: 650px;
+    background-color: #fa8109;
+    position: absolute;
+    top: -50px;
+    left: 650px;
+    z-index: -1;
+}
+.workoutimg1 ,.workoutimg4{
+    width: 30%;
+    height: 500px;
+    margin: 10px 0px;
+}
+.workoutimg2{
+    width: 60%;
+    height: 500px;
+    margin-left: 8%;
+}
+.workoutimg3{
+    width: 60%;
+    height: 500px;
+    margin-right: 8%;
+}
+@media (max-width:1115px) {
+    .workoutWrapper::before{
+        content: '';
+        width:85%;
+        max-width: 100%;
+        height: 550px;
+        background-color: #fa8109;
+        position: absolute;
+        top: -80px;
+        left: 50px;
+        z-index: -1;
+    }
+    .workoutimg1 ,.workoutimg4, .workoutimg2, .workoutimg3{
+        width:75% ;
+        max-width: 100%;
+        height: 600px;
+        margin: 10px auto;
+        display: block;
+    }
+
+}

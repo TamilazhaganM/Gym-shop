@@ -1,0 +1,19 @@
+*{
+    margin: 0%;
+}
+.navbar{
+    background-color: hsla(180, 10%, 90%, 0.664);
+}
+.menuitems{
+    margin-right: 40px;
+    font-weight: lighter;
+    font-size:medium;
+}
+.menuitems:hover{
+    color:#D65A31;
+}
+.logoimage1{
+    width: 120px;
+    height: 80px;
+    border-radius: 10px;
+}

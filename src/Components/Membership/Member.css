@@ -1,0 +1,17 @@
+.memberSetup h1{
+    text-align: center;
+    font-size: 5rem;
+    font-weight: bolder;
+}
+.card-Title{
+    color: #fa8109;
+    font-size: 2rem;
+}
+.cards{
+    text-align: center;
+    background-color: #222831;
+    margin: 50px auto;
+}
+.card-text{
+    color: white;
+}
