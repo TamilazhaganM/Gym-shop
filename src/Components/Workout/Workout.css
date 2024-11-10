@@ -42,17 +42,17 @@ h2{
 @media (max-width:1115px) {
     .workoutWrapper::before{
         content: '';
-        width:85%;
+        width:100%;
         max-width: 100%;
         height: 550px;
         background-color: #fa8109;
         position: absolute;
         top: -80px;
-        left: 50px;
+        left: 0px;
         z-index: -1;
     }
     .workoutimg1 ,.workoutimg4, .workoutimg2, .workoutimg3{
-        width:75% ;
+        width:85% ;
         max-width: 100%;
         height: 600px;
         margin: 10px auto;

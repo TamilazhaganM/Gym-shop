@@ -7,7 +7,8 @@
 .menuitems{
     margin-right: 40px;
     font-weight: lighter;
-    font-size:medium;
+    font-size:1.2rem;
+    text-align: center;
 }
 .menuitems:hover{
     color:#D65A31;

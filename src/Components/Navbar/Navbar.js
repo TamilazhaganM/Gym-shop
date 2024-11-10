@@ -66,7 +66,7 @@ function Navlist() {
             <Nav.Link className=" menuitems" as={Link} to="/membership" >  Memberships</Nav.Link>
             <Nav.Link className=" menuitems" onClick={handleContact} > Contact</Nav.Link>
             <Nav.Link className=" menuitems" as={Link} to="/login" > Log In <i class="bi bi-person-circle"></i></Nav.Link>
-            <Nav.Link href="#contact" ><i class="bi bi-chat-text burger"></i></Nav.Link>
+            <Nav.Link className=" menuitems" href="#contact" ><i class="bi bi-chat-text burger"></i></Nav.Link>
           </Navbar.Collapse>
         </Container>
       </Navbar>

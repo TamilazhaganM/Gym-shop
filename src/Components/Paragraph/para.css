@@ -45,6 +45,7 @@
     display: block;
     margin: 250px auto 450px;
     width: 500px;
+    max-width: 100%;
     height: 400px;
     position: relative;
     background-color: #f0f0f0;
@@ -153,5 +154,9 @@
         position: relative;
         right: 0px;
         /* z-index: 1; */
+    }
+    .overlay-text h5 {
+        font-size:x-large;
+        margin-top: 50px;
     }
 }

@@ -59,11 +59,11 @@ const Login = () => {
         <div className="login-container">
           <Container>
             <Row>
-              <Col className="welcomesection" lg={6}>
+              <Col className="welcomesection" lg={6} sm={12}>
                 <h1>Great to see you again!</h1>
                 <p>Ready to explore what's new?</p>
               </Col>
-              <Col className="inputsection" lg={6}>
+              <Col className="inputsection" lg={6} sm={12}>
                 <h1>Login</h1>
                 <div className="inputs">
                   <div className="input-group mb-3">
