@@ -24,14 +24,14 @@ const Program = () => {
             <Col className="programSetup2">
               <h2>Calisthenics</h2>
               <h4>Rs.1000/Month</h4>
-              <button>Add</button>
+              <button className="programbtn">Add</button>
             </Col>
           </Row>
           <Row className="container">
             <Col className="programSetup2">
               <h2>Full Body Workout</h2>
               <h4>Rs.1500/Month</h4>
-              <button>Add</button>
+              <button className="programbtn">Add</button>
             </Col>
             <Col>
               <Image
@@ -50,7 +50,7 @@ const Program = () => {
             <Col className="programSetup2">
               <h2>Weight Gain</h2>
               <h4>Rs.500/Month</h4>
-              <button>Add</button>
+              <button className="programbtn">Add</button>
             </Col>
           </Row>
           <Row className="container">

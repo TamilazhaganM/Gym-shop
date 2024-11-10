@@ -1,6 +1,5 @@
 import React from "react";
 import "./Footer.css";
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Image } from "react-bootstrap";
@@ -9,21 +8,20 @@ const Footer = () => {
   return (
     <div>
       <div className="footerSetup">
-        {/* <Container> */}
           <Row>
             <Col className="footercards" lg={3} md={6} sm={12}><Image className="logoimage" src={require('../../assets/logo.png')} /></Col>
             <Col lg={3} md={6} sm={12} className="footercards">
               <h4>Menu</h4>
               <br />
-              <a className="menuLink" href="#">Terms & Conditions</a>
+              <button className="menuLink" >Terms & Conditions</button>
               <br />
-              <a className="menuLink" href="#">Privacy Policy</a>
+              <button className="menuLink">Privacy Policy</button>
               <br />
-              <a className="menuLink" href="#">Shipping Policy</a>
+              <button className="menuLink">Shipping Policy</button>
               <br />
-              <a className="menuLink" href="#">Refund Policy</a>
+              <button className="menuLink">Refund Policy</button>
               <br />
-              <a className="menuLink" href="#">Accessibility</a>
+              <button className="menuLink">Accessibility</button>
             </Col>
             <Col className="footercards" lg={3} md={6} sm={12}>
               <h4>Contact Us</h4>
@@ -38,7 +36,6 @@ const Footer = () => {
               <p>Sat: 7AM - 1PM</p>
             </Col>
           </Row>
-        {/* </Container> */}
       </div>
       <div className="footerContent"> 
         ©️ 2024 by The Gym Shop
