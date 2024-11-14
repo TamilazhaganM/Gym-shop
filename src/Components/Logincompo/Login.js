@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
@@ -9,11 +9,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
-  const [mail, setEmail] = useState(""); // Corrected state variable
+  const [email, setEmail] = useState(""); // Corrected state variable
   const [visible, setVisible] = useState(false);
-  const [data, setData] = useState([]);
   const [password, setPassword] = useState("");
   const navigate=useNavigate()
 
@@ -26,8 +26,9 @@ const Login = () => {
     setEmail(e.target.value);
   }
 
-  function handleSubmit() {
-    const trimmedEmail = mail.trim();
+  const  handleSubmit = async (e)=> {
+    e.preventDefault()
+    const trimmedEmail = email.trim();
     const trimmedPassword = password.trim();
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
 
@@ -44,10 +45,20 @@ const Login = () => {
       alert("Please enter your password.");
       return;
     }
+    try {
+     const response = await axios.post('http://localhost:5000/login',{email:trimmedEmail,password:trimmedPassword})
+     if (response.data.status === "success") {
+      navigate("/home");
+    } else {
+      alert(response.data.message);
+    }
+      
+    } catch (error) {
+      console.error("error is" + error);
+      
+    }
 
-    const newUser = { email: trimmedEmail, password: trimmedPassword };
-    setData([...data, { id: data.length + 1, ...newUser }]);
-    navigate('/home')
+   
   }
   function navigatetosignin(){
     navigate('/')
@@ -65,6 +76,7 @@ const Login = () => {
               </Col>
               <Col className="inputsection" lg={6} sm={12}>
                 <h1>Login</h1>
+                <Form onSubmit={handleSubmit}>
                 <div className="inputs">
                   <div className="input-group mb-3">
                     <span className="input-group-text inputfield" id="basic-addon1">
@@ -72,7 +84,7 @@ const Login = () => {
                     </span>
                     <input
                       type="email"
-                      value={mail}
+                      value={email}
                       className="inputfield2"
                       placeholder="Email"
                       onChange={handleEmail} // Added onChange handler
@@ -108,9 +120,11 @@ const Login = () => {
                     </div>
                   </div>
                 </div>
-                <Button className="loginbtn" onClick={handleSubmit}>
+                <Button className="loginbtn" type="submit">
                   Login
                 </Button>
+                </Form>      
+                
 
                 <p>
                   Don't have an account?{" "}

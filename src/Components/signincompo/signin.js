@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./signin.css";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Col,Form, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
@@ -10,12 +10,12 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 const Signin = () => {
   const [visible, setVisible] = useState(false);
   const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [data, setData] = useState([{ name: "", mail: "", pass: "" }]);
   const navigate = useNavigate();
   function handleUser(e) {
     setUser(e.target.value);
@@ -26,49 +26,57 @@ const Signin = () => {
   function handlePassword(e) {
     setPassword(e.target.value);
   }
-  function handleSubmit() {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     const name = user.trim();
     const mail = email.trim();
     const pass = password.trim();
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (name === "") {
-      alert("Please Enter Your Username ");
+    if (!name) {
+      alert("Please Enter Your Username");
       return;
     }
-    if (mail === "") {
-      alert("Please Enter Your email ");
+    if (!mail) {
+      alert("Please Enter Your email");
       return;
     }
     if (!emailPattern.test(mail)) {
       alert("Please Enter a Valid email address");
       return;
     }
-    if (pass === "") {
-      alert("Please Enter Your Password ");
+    if (!pass) {
+      alert("Please Enter Your Password");
       return;
     }
 
-    if (name && mail && pass) {
-      const newUser = { name, mail, pass };
-      setData([...data, { id: data.length + 1, ...newUser }]);
+    try {
+      const response = await axios.post("http://localhost:5000/register", {
+        name,
+        email:mail,
+        password:pass
+      });
+      console.log(response.data);
+      
       setUser("");
       setEmail("");
       setPassword("");
       navigate("/home");
+    } catch (error) {
+      console.error("Error during sign in:", error);
     }
-  }
-  function navigatetologin() {
+  };
+
+  const navigatetologin = () => {
     navigate("/login");
-  }
+  };
 
   return (
     <div>
       <section id="firstsection">
         <div id="signinsection">
           <div className="signin-container">
-            <Container>
-              <Row>
+              <Row className="row">
                 <Col className="welcomesection2" lg={6}>
                   <h1>Welcome Buddy!</h1>
                   <p>
@@ -77,10 +85,10 @@ const Signin = () => {
                 </Col>
                 <Col className="inputsection2" lg={6}>
                   <h1>Signin</h1>
-                  <Form className="inputs2">
+                  <Form onSubmit={handleSubmit}  className="inputs2">
                     <div class="input-group mb-3">
                       <span
-                        class="input-group-text"
+                        class="input-group-text input-group"
                         className="inputfield"
                         id="basic-addon1"
                       >
@@ -89,6 +97,7 @@ const Signin = () => {
                       <input
                         type="text"
                         value={user}
+                        name="name"
                         class="form-control"
                         placeholder="Username"
                         className="inputfield2"
@@ -109,6 +118,7 @@ const Signin = () => {
                       <input
                         type="email"
                         value={email}
+                        name="email"
                         class="form-control"
                         className="inputfield2"
                         placeholder="username@gmail.com"
@@ -130,6 +140,7 @@ const Signin = () => {
                         <input
                           type={visible ? "text" : "password"}
                           value={password}
+                          name="password"
                           class="form-control"
                           className="inputfield2"
                           placeholder="Password"
@@ -149,20 +160,19 @@ const Signin = () => {
                         </div>
                       </div>
                     </div>
-                  </Form>
-                  <Button className="loginbtn2" onClick={handleSubmit}>
+                    <Button className="loginbtn2" type="submit"> 
                     Sign In
                   </Button>
-
+                  </Form>
+                
                   <p>
-                    Already have an account ?{" "}
+                    Already have an account ?
                     <span className="linkitem" onClick={navigatetologin}>
                       Log In
                     </span>
                   </p>
                 </Col>
               </Row>
-            </Container>
           </div>
         </div>
       </section>

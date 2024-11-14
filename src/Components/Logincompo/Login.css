@@ -5,14 +5,18 @@ input:focus, .form-control:focus {
   box-shadow: none ;
   border-color: black ; 
 } */
-
+ *{
+  box-sizing: border-box;
+ }
+.row{
+  margin: 0;
+  padding: 0;
+}
 #Loginsection {
   display: flex;
   justify-content: center;
   height: 100vh;
-  min-height: 100%;
   width: 100%;
-  max-width: 100%;
   background-image: url(../../assets/loginimg4.jpg);
   background-repeat: no-repeat;
   background-position: center;
@@ -25,23 +29,14 @@ input:focus, .form-control:focus {
   background-color: transparent;
   border: none;
   border-radius: 5px;
-  /* height: 400px; */
   max-height: 100vh;
   max-width: 100%;
-  /* box-shadow: 0px 0px 15px 5px black; */
-  /* border: 2px solid; */
+  
 }
-.container,
-.row {
-  /* height: 100%; */
-}
+
 .welcomesection {
   font-weight: 400;
-  font-style: normal;
   color: white;
-  background-color: transparent;
-  /* margin-top: -70px; */
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,16 +52,12 @@ input:focus, .form-control:focus {
 }
 .welcomesection p {
   text-align: center;
-  width: 100%;
   margin-top: 30px;
   font-size: 2.5rem;
-  font-optical-sizing: auto;
   font-weight: 900;
-  font-style: normal;
 }
 .inputsection {
   height: auto;
-  /* margin-top: -70px; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -74,6 +65,9 @@ input:focus, .form-control:focus {
 }
 input {
   text-align: center;
+}
+.input-group {
+  flex-wrap: nowrap;
 }
 .inputsection h1 {
   margin-top: 30px;
@@ -84,7 +78,7 @@ input {
   font-size: 1.5rem;
 }
 .inputs {
-  margin: 50px auto;
+  margin: 20px auto;
   max-width: fit-content;
 }
 .inputfield {
@@ -103,7 +97,6 @@ input {
   border-bottom: 2px solid #fa8109;
   color: white;
   font-size: 1.5em;
-  /* margin-left:10px; */
 }
 .inputfield2:focus {
   border-bottom: 2px solid white;
@@ -113,7 +106,7 @@ input::placeholder {
   text-align: center;
 }
 .loginbtn {
-  margin-bottom: 50px;
+  width: 100%;
   background-color: #fa8109;
   color: black;
   border: none;
@@ -131,37 +124,64 @@ input::placeholder {
   background-color: transparent;
   cursor: pointer;
 }
-@media (max-width:485px) {
-  #Loginsection {
-    display: flex;
-    justify-content: center;
-    /* min-height: 100%; */
-    width: 100%;
-    max-width: 100%;
-    background-image: url(../../assets/loginimg4.jpg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+@media (max-width:768px) {
+  .welcomesection h1{
+    font-size: 3rem;
   }
-  .login-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent;
-    border: none;
-    border-radius: 5px;
-    height: 100%;
-    max-height: 100vh;
-    max-width: 100%;
   
-  }
   .welcomesection p {
-    text-align: center;
-    width: 100%;
-    margin-top: 30px;
-    font-size: 1.5rem;
-    font-optical-sizing: auto;
-    font-weight: 900;
-    font-style: normal;
+    font-size: 1.5rem; /* Smaller font size */
+    margin-top: 15px; /* Adjusted margin */
+  }
+  .inputfield, .inputfield2 {
+    font-size: 1.2em; /* Slightly smaller input font size */
+  }
+  .loginbtn {
+    font-size: 1em; /* Smaller button font size */
+  }
+  #Loginsection{
+    height: auto;
+    padding: 20px;
+  }
+  .login-container{
+    padding: 10px;
+  }
+}
+@media (max-width: 576px) {
+  .welcomesection h1 {
+    font-size: 2rem; /* Further reduce font size */
+  }
+
+  .welcomesection p {
+    font-size: 1.25rem; /* Further reduce font size */
+  }
+
+  .inputfield, .inputfield2 {
+    font-size: 1em; /* Smaller font size for inputs */
+  }
+
+  .loginbtn {
+    font-size: 0.9em; /* Smaller button font */
+  }
+
+  #loginsection {
+    padding: 15px; /* Increase padding */
+  }
+
+  .login-container {
+    flex-direction: column; /* Stack elements */
+    padding: 20px; /* Add padding */
+  }
+
+  .inputs {
+    margin-top: 10px; /* Adjust spacing */
+  }
+  .eyebtn2 {
+    position: absolute;
+    right: 7px;
+    top: 4px;
+    color: rgb(161, 160, 160);
+    background-color: transparent;
+    cursor: pointer;
   }
 }

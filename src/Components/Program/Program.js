@@ -1,74 +1,93 @@
-import React from "react";
+import React, { useState,createContext } from "react";
 import "./Program.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Image } from "react-bootstrap";
+import { Image, Button, Modal } from "react-bootstrap";
+import Card from "../Card/card";
+import Navlist from "../Navbar/Navbar";
+export const ProgramContext=createContext()
+
 
 const Program = () => {
+  const [show, setShow] = useState(false);
+  const [selectedProgram, setSelectedProgram] = useState(null);
+  const [order, setOrders] = useState([]);
+  const [showCard, setShowCard] = useState(true); 
+  const handleClose = () => setShow(false);
+  
+  const handleShow = (program) => {
+    setShow(true);
+    setSelectedProgram(program);
+  };
+
+  const handlesubmit = () => {
+    if (selectedProgram) {
+      setOrders((prevOrders) => [...prevOrders, selectedProgram]);
+      setShow(false);
+      setShowCard(true)
+    }
+  };
+
+  const programs = [
+    { name: "Calisthenics", price: 1000, image: require('../../assets/methods4.webp') },
+    { name: "Full Body Workout", price: 1500, image: require('../../assets/methods1.webp') },
+    { name: "Weight Gain", price: 500, image: require('../../assets/methods2.webp') },
+    { name: "Athletic Workout", price: 2000, image: require('../../assets/methods3.webp') },
+  ];
+  console.log(order)
+
   return (
-    <div>
-      <div className="programSetup">
-        <h1>Our Challenges</h1>
-        <p>Step by step Challenges to keep you strong and motivated</p>
-      </div>
-      <div>
-        <Container>
-          <Row className="container">
-            <Col>
-              <Image
-                className="programImg"
-                src={require("../../assets/methods4.webp")}
-              ></Image>
-            </Col>
-            <Col className="programSetup2">
-              <h2>Calisthenics</h2>
-              <h4>Rs.1000/Month</h4>
-              <button className="programbtn">Add</button>
-            </Col>
-          </Row>
-          <Row className="container">
-            <Col className="programSetup2">
-              <h2>Full Body Workout</h2>
-              <h4>Rs.1500/Month</h4>
-              <button className="programbtn">Add</button>
-            </Col>
-            <Col>
-              <Image
-                className="programImg"
-                src={require("../../assets/methods1.webp")}
-              ></Image>
-            </Col>
-          </Row>
-          <Row className="container">
-            <Col>
-              <Image
-                className="programImg"
-                src={require("../../assets/methods2.webp")}
-              ></Image>
-            </Col>
-            <Col className="programSetup2">
-              <h2>Weight Gain</h2>
-              <h4>Rs.500/Month</h4>
-              <button className="programbtn">Add</button>
-            </Col>
-          </Row>
-          <Row className="container">
-            <Col className="programSetup2">
-              <h2>Atheletic Workout</h2>
-              <h4>Rs.1000/Month</h4>
-              <button>Add</button>
-            </Col>
-            <Col>
-              <Image
-                className="programImg"
-                src={require("../../assets/methods3.webp")}
-              ></Image>
-            </Col>
-          </Row>
-        </Container>
-      </div>
+    <>
+    <ProgramContext.Provider value={{ order, setOrders }}>
+  <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+    <Modal.Header closeButton>
+      <Modal.Title>Welcome To Muscle House</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>Are You Ready to Join the {selectedProgram?.name} Program?</Modal.Body>
+    <Modal.Footer>
+      <Button variant="secondary" onClick={handleClose}>Not Yet</Button>
+      <Button style={{ backgroundColor: '#fa8109', border: 'none' }} onClick={handlesubmit}>
+       Ready To Go
+      </Button>
+    </Modal.Footer>
+  </Modal>
+<Navlist />
+  <div className="programSetup">
+    <h1>Our Challenges</h1>
+    <p>Step by step Challenges to keep you strong and motivated</p>
+    <p>Select the type of program</p>
+  </div>
+
+  <Container>
+    {programs.map((program, index) => (
+      <Row className="container" key={index}>
+        <Col>
+          <Image className="programImg" src={program.image} />
+        </Col>
+        <Col className="programSetup2">
+          <h2>{program.name}</h2>
+          <h4>Rs.{program.price}/Month</h4>
+          <Button
+            variant="primary"
+            className="programbtn"
+            onClick={() => handleShow(program)}
+          >
+            Add
+          </Button>
+        </Col>
+      </Row>
+    ))}
+  </Container>
+
+  {/* Conditionally render the Card component based on showCard */}
+    <div className="cardContainer">
+      <Card />
     </div>
+</ProgramContext.Provider>
+
+      
+    </>
   );
 };
 

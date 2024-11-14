@@ -41,3 +41,7 @@ font-size: 3rem;
     border: none;
     padding:5px 25px;
 }
+.cardContainer{
+    display: flex;
+    justify-content: center;
+}
