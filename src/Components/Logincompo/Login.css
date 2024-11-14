@@ -140,7 +140,7 @@ input::placeholder {
     font-size: 1em; /* Smaller button font size */
   }
   #Loginsection{
-    height: auto;
+    /* height: auto; */
     padding: 20px;
   }
   .login-container{
@@ -166,6 +166,7 @@ input::placeholder {
 
   #loginsection {
     padding: 15px; /* Increase padding */
+    height: 100vh;
   }
 
   .login-container {

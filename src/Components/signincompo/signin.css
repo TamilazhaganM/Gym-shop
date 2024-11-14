@@ -173,7 +173,7 @@ input::placeholder {
   }
 
   #signinsection {
-    height: auto; /* Let content define the height */
+    /* height: auto; Let content define the height */
     padding: 20px; /* Add some padding */
   }
 
@@ -201,6 +201,7 @@ input::placeholder {
 
   #signinsection {
     padding: 15px; /* Increase padding */
+    height: 100vh;
   }
 
   .signin-container {
