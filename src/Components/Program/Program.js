@@ -59,9 +59,9 @@ const Program = () => {
     <p>Select the type of program</p>
   </div>
 
-  <Container>
+  <Container >
     {programs.map((program, index) => (
-      <Row className="container" key={index}>
+      <Row className="container mb-3" key={index}>
         <Col>
           <Image className="programImg" src={program.image} />
         </Col>
@@ -81,9 +81,10 @@ const Program = () => {
   </Container>
 
   {/* Conditionally render the Card component based on showCard */}
-    <div className="cardContainer">
+   {showCard && <div className="cardContainer">
       <Card />
     </div>
+   }
 </ProgramContext.Provider>
 
       
