@@ -53,6 +53,39 @@ app.post("/register", async (req, res) => {
     res.status(500).send({ message: "Internal server error." });
   }
 });
+app.post('/member',async(req,res)=>{
+  const {name,mail,place,mobile}=req.body
+
+  if (!name || !mail || !place || !mobile) {
+    return res.status(400).json({ message: "All fields are required." });
+  }
+
+  try {
+    let database = await dbo()
+    const collection=database.collection("members")
+    const customer ={name,mail,place,mobile}
+    await collection.insertOne(customer)
+    res.status(201).send({ message: "Member Added successfully!" });
+  } catch (error) {
+    console.error("Error in member adding:", error);
+    res.status(500).send({ message: "Internal server error." });
+  }
+})
+app.get('/order',async(req,res)=>{
+  try{
+  let database= await dbo()
+  const orderDetails=database.collection('members')
+  const latestMember=await orderDetails.findOne({},{sort:{_id:-1}})
+  if (latestMember) {
+    res.status(200).json(latestMember);
+  } else {
+    res.status(404).json({ message: "No records found." });
+  }
+} catch (error) {
+  console.error("Error fetching the latest member:", error);
+  res.status(500).json({ message: "Internal server error" });
+}
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

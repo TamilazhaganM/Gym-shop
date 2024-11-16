@@ -1,20 +1,20 @@
 import React, { useContext } from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { ProgramContext } from '../Program/Program';
+import { ProgramContext } from '../Program/Program.js';
 
 const Orders = () => {
   const { order, setOrders } = useContext(ProgramContext); // Get order and setOrders from context
 
   // Function to handle removing an order
   const handleRemove = (index) => {
-    // Create a new array excluding the item at the specified index
     const updatedOrder = order.filter((_, i) => i !== index);
     setOrders(updatedOrder); // Update the context with the new order
   };
+  console.log(order)
 
   return (
     <div>
-      <h2>SELECTED PROGRAMS</h2>
+      <h2 style={{marginBottom:'0px'}}>SELECTED PROGRAMS</h2>
       <ListGroup as="ol" numbered>
         {order.map((item, index) => (
           <ListGroup.Item
@@ -37,4 +37,3 @@ const Orders = () => {
 };
 
 export default Orders;
-    

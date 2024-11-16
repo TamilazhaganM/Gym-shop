@@ -1,0 +1,44 @@
+
+.summary{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.summary h1{
+text-align: center;
+background-color: #222831;
+color: white;
+padding: 20px;
+}
+.summarypara{
+    font-size: 1.5rem;
+    color: #222831;
+    text-align: left;
+}
+.summarybtn1 {
+  background-color: #fa8109;
+  border: none ;
+  text-align: center;
+  width: 200px;
+  margin: 0px auto;
+}
+.summarybtn1:hover{
+    background-color: rgb(43, 240, 43);
+}
+.summarybtn2 {
+    background-color: #222831;
+    color:white;
+    border: none ;
+    text-align: center;
+    width: 200px;
+    margin: 20px auto;
+  }
+  .summarybtn2:hover{
+    background-color:#fa8109;
+}
+.detailsdiv{
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  /* align-items: center; */
+}

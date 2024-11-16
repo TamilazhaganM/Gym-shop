@@ -1,18 +1,18 @@
-import React, { useState,createContext } from "react";
+import React, { useState,createContext, useContext } from "react";
 import "./Program.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Image, Button, Modal } from "react-bootstrap";
 import Card from "../Card/card";
-import Navlist from "../Navbar/Navbar";
+// import {ProgramContext} from "./program"
 export const ProgramContext=createContext()
 
 
 const Program = () => {
   const [show, setShow] = useState(false);
   const [selectedProgram, setSelectedProgram] = useState(null);
-  const [order, setOrders] = useState([]);
+  const {order, setOrders} = useContext(ProgramContext);
   const [showCard, setShowCard] = useState(true); 
   const handleClose = () => setShow(false);
   
@@ -37,9 +37,10 @@ const Program = () => {
   ];
   console.log(order)
 
+
   return (
     <>
-    <ProgramContext.Provider value={{ order, setOrders }}>
+
   <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
     <Modal.Header closeButton>
       <Modal.Title>Welcome To Muscle House</Modal.Title>
@@ -52,7 +53,6 @@ const Program = () => {
       </Button>
     </Modal.Footer>
   </Modal>
-<Navlist />
   <div className="programSetup">
     <h1>Our Challenges</h1>
     <p>Step by step Challenges to keep you strong and motivated</p>
@@ -75,7 +75,7 @@ const Program = () => {
           >
             Add
           </Button>
-        </Col>
+        </Col>  
       </Row>
     ))}
   </Container>
@@ -85,11 +85,11 @@ const Program = () => {
       <Card />
     </div>
    }
-</ProgramContext.Provider>
 
       
     </>
   );
+  
 };
 
 export default Program;

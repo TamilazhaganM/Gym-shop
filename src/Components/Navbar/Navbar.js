@@ -53,7 +53,6 @@ function Navlist() {
       }
     }, 100);
   }
-  console.log(order)
 
   return (
       <div id="home">

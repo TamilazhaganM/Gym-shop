@@ -14,21 +14,25 @@ import Signin from "./Components/signincompo/signin.js";
 import Program from "./Components/Program/Program.js";
 import Member from "./Components/Membership/Member.js";
 import { ProgramContext } from "./Components/Program/Program";
+import Summarypage from "./Components/Summarys/summary.js";
 
+
+export default App;
 function App() {
   const [order, setOrders] = useState([]);
 
   return (
     <ProgramContext.Provider value={{ order, setOrders }}>
       <Router>
+        <Navlist /> {/* Navlist should have access to context */}
         <Routes>
           <Route path="/" element={<Signin />} />
           <Route path="/login" element={<Login />} />
           <Route path="/programlist" element={<><Program /><Footer /></>} />
-          <Route path="/membership" element={<><Navlist /><Member /><Footer /></>} />
+          <Route path="/membership" element={<><Member /><Footer /></>} />
+          <Route path="/ordersummary" element={<Summarypage />} />
           <Route path="/home" element={
             <>
-              <Navlist />
               <Intro />
               <Para />
               <Workout />
@@ -42,5 +46,3 @@ function App() {
     </ProgramContext.Provider>
   );
 }
-
-export default App;

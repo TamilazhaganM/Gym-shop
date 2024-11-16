@@ -2,16 +2,19 @@ import React, { useState } from "react";
 import "./Contact.css";
 import { Button, FloatingLabel, Form, Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Contact = () => {
   const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
   const [phone, setPhone] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
-  function handlesubmit(e) {
+  const handlesubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     const name = user.trim();
     const mail = email.trim();
     const place = city.trim();
@@ -21,20 +24,35 @@ const Contact = () => {
       alert("Please Enter Your Name");
       return;
     }
-    if (!mail) {
-      alert("Please Enter Your email");
+
+    if (!/^\S+@\S+\.\S+$/.test(mail)) {
+      alert("Please enter a valid email address");
       return;
     }
+
     if (!place) {
       alert("Please Enter Your city");
       return;
     }
-    if (!mobile) {
-      alert("Please Enter Your mobile number");
+    if (!/^\d{10}$/.test(mobile)) {
+      alert("Please enter a valid 10-digit mobile number");
       return;
     }
-    navigate("/programlist");
-  }
+    try {
+      const response = await axios.post("http://13.61.7.123:5000/member", {
+        name,
+        mail,
+        place,
+        mobile,
+      });
+      console.log({name,mail,place,mobile})
+      console.log(response.data);
+      navigate("/programlist");
+    } catch (error) {
+      console.error("Error during sign in:", error);
+    }
+    setIsSubmitting(true);
+  };
 
   return (
     <div id="contact">
@@ -94,8 +112,8 @@ const Contact = () => {
               onChange={(e) => setPhone(e.target.value)}
             />
           </FloatingLabel>
-          <Button className="submitbtn" type="submit">
-            Submit
+          <Button className="submitbtn" type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Submitting..." : "Submit"}
           </Button>
         </Form>
       </div>

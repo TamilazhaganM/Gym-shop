@@ -1,8 +1,13 @@
 import React from "react";
 import "./para.css";
 import { Image } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const Para = () => {
+  const navigate=useNavigate()
+  function handlesweat(){
+    navigate('/programlist')
+  }
   return (
     <div>
       <div className="paraSetup">
@@ -11,7 +16,7 @@ const Para = () => {
           top-tier workout gear and equipment. From beginners to pros, we’ve got
           the essentials to support every step of your fitness journey!"
         </p>
-        <button>Start Sweating</button>
+        <button onClick={handlesweat}>Start Sweating</button>
       </div>
       <div className="paraImageWrapper">
         <Image
