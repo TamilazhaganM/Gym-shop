@@ -1,3 +1,4 @@
+
 import express from "express";
 import dbo from "./Database/db.js";
 import cors from "cors"
@@ -33,7 +34,7 @@ app.post("/login",async(req,res)=>{
 
 app.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
-  
+
   // Basic input validation
   if (!name || !email || !password) {
     return res.status(400).send({ message: "All fields are required." });
