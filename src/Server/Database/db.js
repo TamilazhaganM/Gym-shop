@@ -6,7 +6,10 @@ let database;
 async function getDatabase() {
   if (!database) {
     try {
-      const client = await MongoClient.connect("mongodb://localhost:27017/");
+      const client = await MongoClient.connect("mongodb://54.234.71.91:27017/", {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      });
       database = client.db("customers");
       console.log("Database connected successfully");
     } catch (error) {

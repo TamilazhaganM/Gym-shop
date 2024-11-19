@@ -24,15 +24,16 @@ function App() {
   return (
     <ProgramContext.Provider value={{ order, setOrders }}>
       <Router>
-        <Navlist /> {/* Navlist should have access to context */}
+       {/* Navlist should have access to context */}
         <Routes>
           <Route path="/" element={<Signin />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/programlist" element={<><Program /><Footer /></>} />
-          <Route path="/membership" element={<><Member /><Footer /></>} />
+          <Route path="/programlist" element={<>  <Navlist /><Program /><Footer /></>} />
+          <Route path="/membership" element={<>  <Navlist /><Member /><Footer /></>} />
           <Route path="/ordersummary" element={<Summarypage />} />
           <Route path="/home" element={
             <>
+              <Navlist />
               <Intro />
               <Para />
               <Workout />

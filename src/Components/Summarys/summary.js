@@ -13,7 +13,7 @@ const Summarypage = () => {
   const handlesubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get('http://13.61.7.123:5000/order');
+      const response = await axios.get('http://54.234.71.91:5000/order');
       setMember(response.data);
       setError(null); // Clear errors on success
     } catch (err) {
