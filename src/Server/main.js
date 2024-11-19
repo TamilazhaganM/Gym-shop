@@ -90,14 +90,19 @@ app.get('/order',async(req,res)=>{
   res.status(500).json({ message: "Internal server error" });
 }
 });
-app.get("/check-db", async (req, res) => {
+app.get('/test-db', async (req, res) => {
   try {
-    let database = await dbo();
+    let database = await dbo(); // Ensure `dbo()` connects to your database correctly
     const collections = await database.collections();
-    res.status(200).json(collections);
+    const collectionNames = collections.map(collection => collection.collectionName);
+    
+    res.status(200).json({
+      message: 'Database is working',
+      collections: collectionNames,
+    });
   } catch (error) {
-    console.error("Database check failed:", error);
-    res.status(500).json({ message: "Failed to access database" });
+    console.error('Database test failed:', error);
+    res.status(500).json({ message: 'Failed to access database' });
   }
 });
 

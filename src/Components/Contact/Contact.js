@@ -39,7 +39,7 @@ const Contact = () => {
       return;
     }
     try {
-      const response = await axios.post("/api/member", {
+      const response = await axios.post("http://54.234.71.91:5000/member", {
         name,
         mail,
         place,

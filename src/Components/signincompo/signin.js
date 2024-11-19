@@ -51,7 +51,7 @@ const Signin = () => {
     }
 
     try {
-      const response = await axios.post("/api/register", {
+      const response = await axios.post("http://54.234.71.91:5000//register", {
         name,
         email:mail,
         password:pass
