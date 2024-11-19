@@ -46,7 +46,7 @@ const Login = () => {
       return;
     }
     try {
-     const response = await axios.post('http://54.234.71.91:5000/login',{email:trimmedEmail,password:trimmedPassword})
+     const response = await axios.post('/api/login',{email:trimmedEmail,password:trimmedPassword})
      if (response.data.status === "success") {
       navigate("/home");
     } else {
