@@ -9,12 +9,11 @@ const Contact = () => {
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
   const [phone, setPhone] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  // const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const handlesubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
     const name = user.trim();
     const mail = email.trim();
     const place = city.trim();
@@ -51,7 +50,7 @@ const Contact = () => {
     } catch (error) {
       console.error("Error during sign in:", error);
     }
-    setIsSubmitting(true);
+    // setIsSubmitting(true);
   };
 
   return (
@@ -112,8 +111,7 @@ const Contact = () => {
               onChange={(e) => setPhone(e.target.value)}
             />
           </FloatingLabel>
-          <Button className="submitbtn" type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Submitting..." : "Submit"}
+          <Button className="submitbtn" type="submit" >Submit
           </Button>
         </Form>
       </div>

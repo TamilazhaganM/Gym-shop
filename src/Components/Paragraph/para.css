@@ -49,6 +49,7 @@
     height: 400px;
     position: relative;
     background-color: #f0f0f0;
+    animation: movingright 2s;
 }
 
 .paraImageWrapper::before {
@@ -96,6 +97,14 @@
     font-size:xx-large;
     margin-top: 50px;
 }
+@keyframes movingright {
+    0% {
+        transform: translateY(100px);
+      }
+      100% {
+        transform: translateY(0px);
+      }
+    }
 @media(max-width:1115px) {
     .overlay-text{
         /* display: none; */

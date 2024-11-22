@@ -152,6 +152,12 @@ input::placeholder {
   background-color: transparent;
   cursor: pointer;
 }
+.error-message {
+  color: white;          /* Ensures the error text is white */
+  font-size: 14px;       /* Adjust font size */
+  margin-top: 5px;       /* Adds space between the input field and error message */
+  font-weight: 400;      /* Optional: Make the error message text lighter */
+}
 
 /* Responsive Styles */
 @media (max-width: 768px) {
