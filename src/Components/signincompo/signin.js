@@ -97,11 +97,11 @@ const Signin = () => {
               <Col className="welcomesection2" lg={6}>
                 <h1>Welcome Buddy!</h1>
                 <p>
-                  Please sign in to explore the new feature of our platform
+                  Please sign up to explore the new feature of our platform
                 </p>
               </Col>
               <Col className="inputsection2" lg={6}>
-                <h1>Signin</h1>
+                <h1>SignUp</h1>
                 <Form onSubmit={handleSubmit} className="inputs2">
                   <div className="input-group mb-3">
                     <span

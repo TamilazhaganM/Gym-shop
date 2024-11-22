@@ -119,11 +119,13 @@ input {
   border-bottom: 2px solid white;
 }
 
-input::placeholder {
+.inputfield::placeholder,
+.inputfield2::placeholder {
   color: white;
   text-align: center;
-  opacity: 0.4;
+  opacity: 0.8;
 }
+
 
 .loginbtn2 {
   width: 100%;

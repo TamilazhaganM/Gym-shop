@@ -100,6 +100,7 @@ input {
 }
 .inputfield2:focus {
   border-bottom: 2px solid white;
+  background: transparent;
 }
 input::placeholder {
   color: white;

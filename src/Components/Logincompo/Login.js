@@ -54,10 +54,18 @@ const Login = () => {
 
     try {
       const response = await axios.post('https://gym-shop-1.onrender.com/login', { email: trimmedEmail, password: trimmedPassword });
+
       if (response.data.status === "success") {
         navigate("/home");
       } else {
-        setErrorMessage(response.data.message);
+        // If the response contains a message indicating an incorrect password
+        if (response.data.message === "Incorrect password") {
+          setPasswordError("Password is incorrect. Please try again.");
+        } else if (response.data.message === "Invalid email") {
+          setEmailError("The email address is not registered. Please check and try again.");
+        } else {
+          setErrorMessage(response.data.message); // Any other message from the backend
+        }
       }
     } catch (error) {
       console.error("Error is: " + error);
@@ -130,16 +138,16 @@ const Login = () => {
                   <Button
                     className="loginbtn"
                     type="submit"
-                    // disabled={!email || !password}
                   >
                     Login
                   </Button>
                 </Form>
+                {/* Display any general error message */}
                 {errorMessage && <div className="error-message">{errorMessage}</div>}
                 <p>
                   Don't have an account?{" "}
                   <span className="linkitem" onClick={navigatetosignin}>
-                    Sign In
+                    Sign Up
                   </span>
                 </p>
               </Col>
