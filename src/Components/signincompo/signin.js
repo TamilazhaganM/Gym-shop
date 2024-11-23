@@ -178,7 +178,7 @@ const Signin = () => {
                   {passwordError && <div className="error-message">{passwordError}</div>}
 
                   <Button className="loginbtn2" type="submit">
-                    Sign In
+                    Sign Uo
                   </Button>
                 </Form>
 

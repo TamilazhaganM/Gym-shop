@@ -111,7 +111,7 @@ input {
   border: none;
   width: 100%;
   border-bottom: 2px solid #fa8109;
-  color: white;
+  color: white !important;
   font-size: 1.5em;
 }
 

@@ -77,10 +77,12 @@ function Navlist() {
             <Nav.Link className="menuitems" onClick={handleContact}>Contact</Nav.Link>
             <Nav.Link className="menuitems" as={Link} to="/login">Log In <i className="bi bi-person-circle"></i></Nav.Link>
                   {/* Conditionally render the Card component based on order */}
-
-            {order.length >= 0 && (
+                  <div className="cardcomponent">
+                  {order.length >= 0 && (
           <Card />
       )}
+                  </div>
+           
           </Navbar.Collapse>
         </Container>
       </Navbar>
