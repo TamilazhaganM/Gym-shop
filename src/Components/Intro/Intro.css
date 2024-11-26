@@ -107,3 +107,16 @@ strong{
         font-size: x-large;
     }
 }
+@media (max-width:576px) {
+    .introSetup{
+        background-image: url(../../assets/intro2.jpg);
+        background-repeat: no-repeat;
+        background-size:cover ;
+        background-position: center;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+}
