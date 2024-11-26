@@ -30,9 +30,9 @@ const Program = () => {
   };
 
   const programs = [
-    { name: "Calisthenics", price: 1000, image: require('../../assets/methods4.webp') },
+    { name: "Yogas", price: 1000, image: require('../../assets/methods4.webp') },
     { name: "Full Body Workout", price: 1500, image: require('../../assets/methods1.webp') },
-    { name: "Weight Gain", price: 500, image: require('../../assets/methods2.webp') },
+    { name: "Weight Gain", price: 500, image: require('../../assets/intro1.jpg') },
     { name: "Athletic Workout", price: 2000, image: require('../../assets/methods3.webp') },
   ];
   console.log(order)
