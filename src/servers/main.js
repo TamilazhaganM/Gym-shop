@@ -6,7 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cors({
-  origin: ['https://musclehousee.netlify.app', 'https://musclehousee.netlify.app/'],
+  origin: ['https://musclehousee.netlify.app', 'https://musclehousee.netlify.app/','http://localhost:3000/'],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true, // If you need to include cookies or authorization headers
 }));
@@ -58,7 +58,7 @@ app.post("/register", async (req, res) => {
     res.status(201).send({ message: "Customer registered successfully!" });
   } catch (error) {
     console.error("Error registering customer:", error);
-    res.status(500).send({ message: "Internal server error." });
+    res.status(500).send({ message: "Internal server error while registering the user." });
   }
 });
 app.post('/member',async(req,res)=>{
