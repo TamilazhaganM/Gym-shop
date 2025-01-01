@@ -14,7 +14,7 @@ app.options('*', cors());
 
 
 app.get('/', (req, res) => {
-  res.send('Hello, world!');
+  res.send('Hello, worldd!');
 });
 app.post("/login",async(req,res)=>{
   const {email,password}=req.body
