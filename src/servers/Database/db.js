@@ -1,6 +1,5 @@
 import mongodb from "mongodb";
 const MongoClient = mongodb.MongoClient;
-import mongoose from "mongoose";
 
 mongoose.set('debug', true);
 
