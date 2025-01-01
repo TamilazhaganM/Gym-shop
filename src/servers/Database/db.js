@@ -1,7 +1,6 @@
 import mongodb from "mongodb";
 const MongoClient = mongodb.MongoClient;
 
-mongoose.set('debug', true);
 
 
 let database;
