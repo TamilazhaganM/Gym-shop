@@ -38,7 +38,7 @@ const Contact = () => {
       return;
     }
     try {
-      const response = await axios.post("https://gym-shop-1.onrender.com/member", {
+      const response = await axios.post("https://gym-shop-7.onrender.com/member", {
         name,
         mail,
         place,

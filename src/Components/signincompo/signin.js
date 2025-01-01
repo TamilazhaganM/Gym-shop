@@ -68,7 +68,7 @@ const Signin = () => {
     if (!valid) return;
 
     try {
-      const response = await axios.post("https://gym-shop-1.onrender.com/register", {
+      const response = await axios.post("https://gym-shop-7.onrender.com/register", {
         name,
         email: mail,
         password: pass

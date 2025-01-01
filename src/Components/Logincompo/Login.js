@@ -53,7 +53,7 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post('https://gym-shop-1.onrender.com/login', { email: trimmedEmail, password: trimmedPassword });
+      const response = await axios.post('https://gym-shop-7.onrender.com/login', { email: trimmedEmail, password: trimmedPassword });
 
       if (response.data.status === "success") {
         navigate("/home");
