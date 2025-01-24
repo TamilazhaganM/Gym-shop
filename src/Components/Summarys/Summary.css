@@ -36,6 +36,10 @@ padding: 20px;
   .summarybtn2:hover{
     background-color:#fa8109;
 }
+.amount-input{
+  width: 28%;
+  margin: 0 auto;
+}
 .detailsdiv{
   display: flex;
   flex-direction: column;

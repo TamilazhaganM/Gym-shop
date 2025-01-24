@@ -1,12 +1,17 @@
 import express from "express";
 import dbo from "./Database/db.js";
+import Razorpay from 'razorpay'
 import cors from "cors"
+import dotenv from "dotenv"
+
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+dotenv.config()
+const PORT = process.env.PORT;
 app.use(express.json());
+app.use(express.urlencoded({extended:false}))
 app.use(cors({
-  origin: ['https://musclehousee.netlify.app','http://localhost:3000','https://musclehouse.netlify.app/','https://musclehouse.netlify.app'],
+  origin: ['https://musclehousee.netlify.app','http://localhost:3000','https://musclehouse.netlify.app/'],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true, // If you need to include cookies or authorization headers
 }));
@@ -80,7 +85,7 @@ app.post('/member',async(req,res)=>{
     res.status(500).send({ message: "Internal server error." });
   }
 })
-app.get('/order',async(req,res)=>{
+app.get('/latest-member',async(req,res)=>{
   try{
   let database= await dbo()
   const orderDetails=database.collection('members')
@@ -110,6 +115,42 @@ app.get('/test-db', async (req, res) => {
     res.status(500).json({ message: 'Failed to access database' });
   }
 });
+
+// Razorpay api
+app.post('/order', async (req, res) => {
+  try {
+    const { amount, currency, receipt } = req.body;
+
+    // Validate the input
+    if (!amount || !currency || !receipt) {
+      return res.status(400).json({ message: "Missing required fields: amount, currency, receipt" });
+    }
+
+    const razorpay = new Razorpay({
+      key_id: process.env.RAZORPAY_KEY_ID,
+      key_secret: process.env.RAZORPAY_KEY_SECRET,
+    });
+
+    const options = {
+      amount, // Amount in smallest currency unit
+      currency,
+      receipt,
+    };
+
+    const order = await razorpay.orders.create(options);
+
+    if (!order) {
+      return res.status(502).json({ message: "Failed to create order" });
+    }
+
+    res.status(200).json(order);
+  } catch (err) {
+    console.error("Error creating Razorpay order:", err.message);
+    res.status(500).json({ message: "Internal server error", error: err.message });
+  }
+});
+
+
 
 
 app.listen(PORT,'0.0.0.0', () => {
