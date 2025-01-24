@@ -4,7 +4,6 @@ import { Button, Col, Container, Row } from 'react-bootstrap';
 import axios from 'axios';
 import { ProgramContext } from '../Program/Program';
 import Orders from '../Orders/orders';
-import { useNavigate } from 'react-router-dom';
 import Navlist from '../Navbar/Navbar';
 
 const Summarypage = () => {
@@ -12,17 +11,24 @@ const Summarypage = () => {
   const [member, setMember] = useState(null);
   const [error, setError] = useState(null); // Track errors
   const [amount, setAmount] = useState(); // Default amount, which can be changed by client
-  const [scriptLoaded, setScriptLoaded] = useState(false);
-  const navigate = useNavigate();
 
+  // Dynamically load Razorpay script only when it's needed
   useEffect(() => {
-    // Dynamically load Razorpay script
-    const script = document.createElement('script');
-    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-    script.async = true;
-    script.onload = () => setScriptLoaded(true); // Update state when script is loaded
-    script.onerror = () => console.error('Failed to load Razorpay script');
-    document.body.appendChild(script);
+    const loadRazorpayScript = () => {
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.async = true;
+      script.onload = () => {
+        console.log('Razorpay script loaded successfully');
+      };
+      script.onerror = () => {
+        console.error('Failed to load Razorpay script');
+        alert('Payment system is currently unavailable. Please try again later.');
+      };
+      document.body.appendChild(script);
+    };
+
+    loadRazorpayScript();
   }, []);
 
   const handlesubmit = async (e) => {

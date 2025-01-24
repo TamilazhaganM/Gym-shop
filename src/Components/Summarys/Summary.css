@@ -1,46 +1,45 @@
-
-.summary{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+.summary {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
-.summary h1{
-text-align: center;
-background-color: #222831;
-color: white;
-padding: 20px;
+.summary h1 {
+  text-align: center;
+  background-color: #222831;
+  padding: 20px;
+  color: white;
 }
-.summarypara{
-    font-size: 1.5rem;
-    color: #222831;
-    text-align: left;
+.summarypara {
+  font-size: 1.5rem;
+  color: #222831;
+  text-align: left;
 }
 .summarybtn1 {
   background-color: #fa8109;
-  border: none ;
+  border: none;
   text-align: center;
   width: 200px;
   margin: 0px auto;
 }
-.summarybtn1:hover{
-    background-color: rgb(43, 240, 43);
+.summarybtn1:hover {
+  background-color: rgb(43, 240, 43);
 }
 .summarybtn2 {
-    background-color: #222831;
-    color:white;
-    border: none ;
-    text-align: center;
-    width: 200px;
-    margin: 20px auto;
-  }
-  .summarybtn2:hover{
-    background-color:#fa8109;
+  background-color: #222831;
+  color: white;
+  border: none;
+  text-align: center;
+  width: 200px;
+  margin: 20px auto;
 }
-.amount-input{
+.summarybtn2:hover {
+  background-color: #fa8109;
+}
+.amount-input {
   width: 28%;
   margin: 0 auto;
 }
-.detailsdiv{
+.detailsdiv {
   display: flex;
   flex-direction: column;
   /* justify-content: center; */
