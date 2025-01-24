@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 const Intro = () => {
   const navigate=useNavigate()
   function handlemember() {
-    navigate('/home#contact');
+    navigate('/home');
     setTimeout(() => {
       const methodsElement = document.getElementById("contact");
       if (methodsElement) {

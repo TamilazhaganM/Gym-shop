@@ -53,6 +53,9 @@ function Navlist() {
       }
     }, 100);
   }
+  function gohome(){
+    navigate("/home")
+  }
 
   return (
       <div id="home">
@@ -62,6 +65,7 @@ function Navlist() {
             <Image
               src={require('../../assets/logo.png')}
               className="logoimage1"
+              onClick={gohome}
             ></Image>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" className="hamburger" />

@@ -1,16 +1,19 @@
 import React, { useState, useContext, useEffect } from 'react';
 import './Summary.css';
-import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Button, Col, Container, Modal, Row } from 'react-bootstrap';
 import axios from 'axios';
 import { ProgramContext } from '../Program/Program';
 import Orders from '../Orders/orders';
 import Navlist from '../Navbar/Navbar';
+import { useNavigate } from 'react-router-dom';
 
 const Summarypage = () => {
+  const [show, setShow] = useState(false); // For controlling the modal
   const { order } = useContext(ProgramContext); // Access context
   const [member, setMember] = useState(null);
   const [error, setError] = useState(null); // Track errors
-  const [amount, setAmount] = useState(); // Default amount, which can be changed by client
+  const [amount, setAmount] = useState(''); // Default amount, which can be changed by the client
+  const navigate = useNavigate();
 
   // Dynamically load Razorpay script only when it's needed
   useEffect(() => {
@@ -31,6 +34,10 @@ const Summarypage = () => {
     loadRazorpayScript();
   }, []);
 
+  const handlehome = () => {
+    navigate('/home');
+  };
+
   const handlesubmit = async (e) => {
     e.preventDefault();
     try {
@@ -38,72 +45,103 @@ const Summarypage = () => {
       setMember(response.data);
       setError(null); // Clear errors on success
     } catch (err) {
-      console.error("Error fetching member details:", err);
-      setError("Failed to fetch member details. Please try again.");
+      console.error('Error fetching member details:', err);
+      setError('Failed to fetch member details. Please try again.');
     }
   };
 
   const handleConfirmOrder = async () => {
-    if (typeof window.Razorpay !== 'function') {
-        console.error('Razorpay script not loaded');
-        alert('Payment system is currently unavailable. Please try again later.');
-        return;
+    if (!amount) {
+      alert('Please enter an amount.');
+      return;
     }
 
-    const currency = "INR";
-    const receiptID = "qwsaq1";
-    
+    if (typeof window.Razorpay !== 'function') {
+      console.error('Razorpay script not loaded');
+      alert('Payment system is currently unavailable. Please try again later.');
+      return;
+    }
+
+    const currency = 'INR';
+    const receiptID = 'qwsaq1';
+
     // Convert amount to paisa (1 INR = 100 paisa)
     const amountInPaisa = amount * 100;
 
     try {
-        const response = await axios.post('http://localhost:4000/order', {
-            amount: amountInPaisa,
-            currency,
-            receipt: receiptID,
-        });
+      const response = await axios.post('http://localhost:4000/order', {
+        amount: amountInPaisa,
+        currency,
+        receipt: receiptID,
+      });
 
-        const options = {
-            key: "rzp_test_rOc38Inchp8akI",
-            amount: amountInPaisa, // Razorpay takes amount in paisa
-            currency,
-            name: "Razorpay Corporation",
-            description: "Test Transaction",
-            order_id: response.data.id,
-            handler: function (paymentResponse) {
-                alert(`Payment ID: ${paymentResponse.razorpay_payment_id}`);
-                alert(`Order ID: ${paymentResponse.razorpay_order_id}`);
-                alert(`Signature: ${paymentResponse.razorpay_signature}`);
-            },
-            prefill: {
-                name: "Tamil",
-                email: "Tamil@example.com",
-                contact: "9000090000",
-            },
-            notes: {
-                address: "Razorpay Corporate Office",
-            },
-            theme: {
-                color: "#3399cc",
-            },
-        };
+      const options = {
+        key: 'rzp_test_rOc38Inchp8akI',
+        amount: amountInPaisa, // Razorpay takes amount in paisa
+        currency,
+        name: 'Razorpay Corporation',
+        description: 'Test Transaction',
+        order_id: response.data.id,
+        handler: function (paymentResponse) {
+          alert(`Payment ID: ${paymentResponse.razorpay_payment_id}`);
+          alert(`Order ID: ${paymentResponse.razorpay_order_id}`);
+          alert(`Signature: ${paymentResponse.razorpay_signature}`);
+          setShow(true); // Show the modal on successful payment
+        },
+        prefill: {
+          name: 'Tamil',
+          email: 'Tamil@example.com',
+          contact: '9000090000',
+        },
+        notes: {
+          address: 'Razorpay Corporate Office',
+        },
+        theme: {
+          color: '#3399cc',
+        },
+      };
 
-        const rzp1 = new window.Razorpay(options);
+      const rzp1 = new window.Razorpay(options);
 
-        rzp1.on('payment.failed', function (response) {
-            console.error(response.error);
-            alert("Payment failed. Please try again.");
-        });
+      rzp1.on('payment.failed', function (response) {
+        console.error(response.error);
+        alert('Payment failed. Please try again.');
+      });
 
-        rzp1.open();
+      rzp1.open();
     } catch (err) {
-        console.error('Error creating Razorpay order:', err);
-        alert('Failed to initialize payment. Please try again.');
+      console.error('Error creating Razorpay order:', err);
+      alert('Failed to initialize payment. Please try again.');
     }
   };
 
   return (
     <div>
+      {/* Modal for successful payment */}
+      <Modal show={show} centered onHide={() => setShow(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <h4>Congratulations</h4>
+          </Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <p>Your order has been successfully placed!!!</p>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShow(false)}>
+            Back
+          </Button>
+          <Button
+            style={{ backgroundColor: '#fa8109', border: 'none' }}
+            onClick={handlehome}
+          >
+            Continue
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       <Navlist />
       <div className="summary">
         <h1>Thank you for the order</h1>
@@ -135,7 +173,9 @@ const Summarypage = () => {
 
         {/* Input field for amount */}
         <div className="amount-input">
-          <label htmlFor="amount"><p className="summarypara">Enter Amount:</p></label>
+          <label htmlFor="amount">
+            <p className="summarypara">Enter Amount:</p>
+          </label>
           <input
             type="tel"
             id="amount"
@@ -146,8 +186,12 @@ const Summarypage = () => {
           />
         </div>
 
-        <Button className="summarybtn1" onClick={handlesubmit}>Check your Details</Button>
-        <Button className="summarybtn2" onClick={handleConfirmOrder}>Confirm your order</Button>
+        <Button className="summarybtn1" onClick={handlesubmit}>
+          Check your Details
+        </Button>
+        <Button className="summarybtn2" onClick={handleConfirmOrder}>
+          Confirm your order
+        </Button>
       </div>
     </div>
   );
