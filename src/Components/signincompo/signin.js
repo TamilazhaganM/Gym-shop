@@ -2,13 +2,7 @@ import React, { useState } from "react";
 import "./signin.css";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEnvelope,
-  faEye,
-  faEyeSlash,
-  faLock,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faEye, faEyeSlash, faLock, faUser, faUserTie, faUsers } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -17,22 +11,13 @@ const Signin = () => {
   const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+  const [role, setRole] = useState("customer"); // Default role
+
   const [userError, setUserError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  
-  const navigate = useNavigate();
 
-  function handleUser(e) {
-    setUser(e.target.value);
-  }
-  function handleEmail(e) {
-    setEmail(e.target.value);
-  }
-  function handlePassword(e) {
-    setPassword(e.target.value);
-  }
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,7 +26,6 @@ const Signin = () => {
     const pass = password.trim();
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    // Reset error states before validation
     setUserError("");
     setEmailError("");
     setPasswordError("");
@@ -65,135 +49,96 @@ const Signin = () => {
       valid = false;
     }
 
-    if (!valid) return;
+    if (!valid) return;   
 
     try {
-      const response = await axios.post("https://gym-shop-7.onrender.com/register", {
+      const response = await axios.post("https://gym-shop-khhw.onrender.com/register", {
         name,
         email: mail,
-        password: pass
+        password: pass,
+        role, // Include role in request
       });
       console.log(response.data);
 
       setUser("");
       setEmail("");
       setPassword("");
-      navigate("/home");
+      setRole("customer"); // Reset role to default
+      if (role === "admin") {
+        navigate("/Admin/Dashboard");
+      } else {
+        navigate("/home");
+      }
     } catch (error) {
-      console.error("Error during sign in:", error);
+      console.error("Error during sign up:", error);
+      alert(error.response?.data?.message || "Something went wrong. Please try again.");
     }
   };
 
-  const navigatetologin = () => {
-    navigate("/login");
-  };
-
   return (
-    <div>
-      <section id="firstsection">
-        <div id="signinsection">
-          <div className="signin-container">
-            <Row className="row">
-              <Col className="welcomesection2" lg={6}>
-                <h1>Welcome Buddy!</h1>
-                <p>
-                  Please sign up to explore the new feature of our platform
-                </p>
-              </Col>
-              <Col className="inputsection2" lg={6}>
-                <h1>SignUp</h1>
-                <Form onSubmit={handleSubmit} className="inputs2">
-                  <div className="input-group mb-3">
-                    <span
-                      className="input-group-text inputfield"
-                      id="basic-addon1"
-                    >
-                      <FontAwesomeIcon icon={faUser} />
-                    </span>
-                    <input
-                      type="text"
-                      value={user}
-                      name="name"
-                      className="form-control inputfield2"
-                      placeholder="Username"
-                      aria-label="Username"
-                      aria-describedby="basic-addon1"
-                      onChange={handleUser}
-                      required
-                    />
+    <section id="firstsection">
+      <div id="signinsection">
+        <div className="signin-container">
+          <Row className="row">
+            <Col className="welcomesection2" lg={6}>
+              <h1>Welcome Buddy!</h1>
+              <p>Please sign up to explore the new features of our platform</p>
+            </Col>
+            <Col className="inputsection2" lg={6}>
+              <h1>SignUp</h1>
+              <Form onSubmit={handleSubmit} className="inputs2">
+                <Form.Group className="mb-3">
+                  <Form.Label style={{color:"white"}}>Username :</Form.Label>
+                  <div className="input-group">
+                    <span className="input-group-text"><FontAwesomeIcon icon={faUser} /></span>
+                    <Form.Control type="text" value={user} onChange={(e) => setUser(e.target.value)} placeholder="Username" />
                   </div>
                   {userError && <div className="error-message">{userError}</div>}
+                </Form.Group>
 
-                  <div className="input-group mb-3">
-                    <span
-                      className="input-group-text inputfield"
-                      id="basic-addon1"
-                    >
-                      <FontAwesomeIcon icon={faEnvelope} />
-                    </span>
-                    <input
-                      type="email"
-                      value={email}
-                      name="email"
-                      className="form-control inputfield2"
-                      placeholder="username@gmail.com"
-                      onChange={handleEmail}
-                      aria-label="email"
-                      aria-describedby="basic-addon1"
-                      required
-                    />
+                <Form.Group className="mb-3">
+                  <Form.Label style={{color:"white"}}>Email :</Form.Label>
+                  <div className="input-group">
+                    <span className="input-group-text"><FontAwesomeIcon icon={faEnvelope} /></span>
+                    <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="username@gmail.com" />
                   </div>
                   {emailError && <div className="error-message">{emailError}</div>}
+                </Form.Group>
 
-                  <div className="input-group mb-3">
-                    <span
-                      className="input-group-text inputfield"
-                      id="basic-addon1"
-                    >
-                      <FontAwesomeIcon icon={faLock} />
+                <Form.Group className="mb-3">
+                  <Form.Label style={{color:"white"}}>Password :</Form.Label>
+                  <div className="input-group">
+                    <span className="input-group-text"><FontAwesomeIcon icon={faLock} /></span>
+                    <Form.Control type={visible ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+                    <span className="input-group-text" onClick={() => setVisible(!visible)}>
+                      <FontAwesomeIcon icon={visible ? faEye : faEyeSlash} />
                     </span>
-                    <div>
-                      <input
-                        type={visible ? "text" : "password"}
-                        value={password}
-                        name="password"
-                        className="form-control inputfield2"
-                        placeholder="Password"
-                        onChange={handlePassword}
-                        aria-describedby="basic-addon1"
-                        required
-                      />
-                      <div
-                        className="eyebtn"
-                        onClick={() => setVisible(!visible)}
-                      >
-                        {visible ? (
-                          <FontAwesomeIcon icon={faEye} />
-                        ) : (
-                          <FontAwesomeIcon icon={faEyeSlash} />
-                        )}
-                      </div>
-                    </div>
                   </div>
                   {passwordError && <div className="error-message">{passwordError}</div>}
+                </Form.Group>
 
-                  <Button className="loginbtn2" type="submit">
-                    Sign Up
-                  </Button>
-                </Form>
+                <Form.Group className="mb-3">
+                  <Form.Label style={{color:"white"}}>Role :</Form.Label>
+                  <div className="input-group">
+                    <span className="input-group-text"><FontAwesomeIcon icon={role === "customer" ? faUsers : faUserTie} /></span>
+                    <Form.Select style={{ outline: "none", boxShadow: "none", borderColor: "inherit" }} value={role} onChange={(e) => setRole(e.target.value)}>
+                      <option value="customer">Customer</option>
+                      <option value="admin">Admin</option>
+                    </Form.Select>
+                  </div>
+                </Form.Group>
 
-                <p>
-                  Already have an account?
-                  <span className="linkitem" onClick={navigatetologin}>
-                    Log In
-                  </span>
-                </p>
-              </Col>
-            </Row>
-          </div>
+                <Button className="loginbtn2" type="submit">Sign Up</Button>
+              </Form>
+
+              <p>Already have an account? <span className="linkitem" onClick={() => navigate("/login")}>
+                Log In
+              </span></p>
+            </Col>
+          </Row>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 };
 

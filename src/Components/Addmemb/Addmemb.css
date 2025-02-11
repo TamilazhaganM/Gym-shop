@@ -1,0 +1,15 @@
+.Addmembercol2{
+    background-image: url(../../assets/greenbackground.jpg);
+    background: linear-gradient(to bottom,#d5f4ec,#ecefed);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.admintable{
+    height: 100vh;
+}
+.formtable{
+    width: 80%;
+    margin: 0 auto;
+    height: 100%;
+}

@@ -9,6 +9,7 @@ const Contact = () => {
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
   const [phone, setPhone] = useState("");
+  const [member,setMember]=useState("")
   // const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
@@ -18,7 +19,7 @@ const Contact = () => {
     const mail = email.trim();
     const place = city.trim();
     const mobile = phone.trim();
-
+    const membership=member.trim();
     if (!name) {
       alert("Please Enter Your Name");
       return;
@@ -37,14 +38,19 @@ const Contact = () => {
       alert("Please enter a valid 10-digit mobile number");
       return;
     }
+    if(!membership){
+      alert("Select the Membership")
+      return
+    }
     try {
-      const response = await axios.post("https://gym-shop-7.onrender.com/member", {
+      const response = await axios.post("https://gym-shop-khhw.onrender.com/member", {
         name,
         mail,
         place,
         mobile,
+        membership,
       });
-      console.log({name,mail,place,mobile})
+      console.log({name,mail,place,mobile,membership})
       console.log(response.data);
       navigate("/programlist");
     } catch (error) {
@@ -110,6 +116,24 @@ const Contact = () => {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />
+          </FloatingLabel>
+          <FloatingLabel
+            controlId="floatingphone"
+            // label="Membership"
+            className="mb-3 input"
+            
+          >
+            <Form.Select
+                            name="Member"
+                            value={member}
+                            onChange={(e)=>setMember(e.target.value)}
+                            required
+                          >
+                            <option value="">Select Membership</option>
+                            <option value="1 Month Package - Rs.1000">1 Month Package-Rs.1000</option>
+                            <option value="6 Month Package - Rs.4000">6 Month Package-Rs.4000</option>
+                            <option value="1 Year Package - Rs.6000">1 Year Package-Rs.6000</option>
+                          </Form.Select>
           </FloatingLabel>
           <Button className="submitbtn" type="submit" >Submit
           </Button>

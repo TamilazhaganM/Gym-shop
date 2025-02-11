@@ -41,7 +41,7 @@ const Summarypage = () => {
   const handlesubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get('https://gym-shop-7.onrender.com/latest-member');
+      const response = await axios.get('https://gym-shop-khhw.onrender.com/latest-member');
       setMember(response.data);
       setError(null); // Clear errors on success
     } catch (err) {
@@ -69,7 +69,7 @@ const Summarypage = () => {
     const amountInPaisa = amount * 100;
 
     try {
-      const response = await axios.post('http://localhost:4000/order', {
+      const response = await axios.post('https://gym-shop-khhw.onrender.com/order', {
         amount: amountInPaisa,
         currency,
         receipt: receiptID,
@@ -156,6 +156,7 @@ const Summarypage = () => {
                   <p className="summarypara">Email: {member.mail}</p>
                   <p className="summarypara">City: {member.place}</p>
                   <p className="summarypara">Phone: {member.mobile}</p>
+                  <p className="summarypara">Package: {member.membership}</p>
                 </div>
               ) : (
                 <p className="summarypara">Details will be displayed here.</p>

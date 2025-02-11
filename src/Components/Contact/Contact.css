@@ -37,16 +37,21 @@
     background-color: transparent;
     border-radius: 10px;
 }
+.input input {
+    text-align: left;
+    text-transform: lowercase;
+  }
+  
 .input:focus{
     outline: none;
     border: none;
 }
 .overlayContact{
     position: absolute;
-    top: 150px;
+    top: 120px;
     left: 660px;
     width: 30%;
-    height:100% ;
+    height:110% ;
     text-align: center;
     font-family: "Bebas Neue", sans-serif;
     background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
@@ -115,6 +120,9 @@ text-align: center;
     margin-top: 500px;
     margin-bottom: 100px;
    }
+   .form{
+    height: max-content;
+   }
    .contactimg{
     width: 100%;
     margin: -200px auto;
@@ -136,7 +144,7 @@ text-align: center;
     top: 320px;
     left: 10px;
     width: 70%;
-    height:100% ;
+    /* height:100% ; */
     text-align: center;
     font-family: "Bebas Neue", sans-serif;
     background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */

@@ -7,75 +7,74 @@ import {
   faEyeSlash,
   faLock,
 } from "@fortawesome/free-solid-svg-icons";
-import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./Login.css";
 
 const Login = () => {
-  const [email, setEmail] = useState(""); 
+  const [email, setEmail] = useState("");
   const [visible, setVisible] = useState(false);
   const [password, setPassword] = useState("");
-  const [emailError, setEmailError] = useState(""); // For email-specific error
-  const [passwordError, setPasswordError] = useState(""); // For password-specific error
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
-  function handlePassword(e) {
+  const handlePassword = (e) => {
     setPassword(e.target.value);
-  }
+  };
 
-  function handleEmail(e) {
+  const handleEmail = (e) => {
     setEmail(e.target.value);
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const trimmedEmail = email.trim();
-    const trimmedPassword = password.trim();
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    setEmailError("");  // Reset email error
-    setPasswordError(""); // Reset password error
-    setErrorMessage(""); // Clear other errors
-
-    // Simple validation for empty fields
-    if (!trimmedEmail) {
+    setEmailError("");
+    setPasswordError("");
+    setErrorMessage("");
+  
+    if (!email.trim()) {
       setEmailError("Please enter your email.");
       return;
     }
-    if (!emailPattern.test(trimmedEmail)) {
-      setEmailError("Please enter a valid email address.");
-      return;
-    }
-    if (!trimmedPassword) {
+    if (!password.trim()) {
       setPasswordError("Please enter your password.");
       return;
     }
-
+  
     try {
-      const response = await axios.post('https://gym-shop-7.onrender.com/login', { email: trimmedEmail, password: trimmedPassword });
-
+      const response = await axios.post('https://gym-shop-khhw.onrender.com/login', { email, password });
+      console.log("Login Response:", response.data);
       if (response.data.status === "success") {
-        navigate("/home");
+        // Ensure user object exists before destructuring
+        if (response.data.user && response.data.user.role) {
+          const { role } = response.data.user;
+  
+          if (role === "admin") {
+            navigate("/admin-dashboard");
+          } else {
+            navigate("/home");
+          }
+        } else {
+          setErrorMessage("Login successful, but user role is missing.");
+          navigate("/home"); // Fallback route
+        }
       } else {
-        // If the response contains a message indicating an incorrect password
         if (response.data.message === "Incorrect password") {
           setPasswordError("Password is incorrect. Please try again.");
-        } else if (response.data.message === "Invalid email") {
-          setEmailError("The email address is not registered. Please check and try again.");
+        } else if (response.data.message === "Email doesn't exist") {
+          setEmailError("The email address is not registered.");
         } else {
-          setErrorMessage(response.data.message); // Any other message from the backend
+          setErrorMessage(response.data.message);
         }
       }
     } catch (error) {
-      console.error("Error is: " + error);
+      console.error("Login error:", error);
       setErrorMessage("An unexpected error occurred. Please try again.");
     }
   };
-
-  function navigatetosignin() {
-    navigate('/');
-  }
+  
 
   return (
     <section id="firstsection">
@@ -92,7 +91,7 @@ const Login = () => {
                 <Form onSubmit={handleSubmit}>
                   <div className="inputs">
                     <div className="input-group mb-3">
-                      <span className="input-group-text inputfield" id="basic-addon1">
+                      <span className="input-group-text inputfield">
                         <FontAwesomeIcon icon={faEnvelope} />
                       </span>
                       <input
@@ -101,15 +100,12 @@ const Login = () => {
                         className="inputfield2"
                         placeholder="Email"
                         onChange={handleEmail}
-                        aria-describedby="basic-addon1"
-                        required
                       />
                     </div>
-                    {/* Display email error message below the email input */}
                     {emailError && <div className="error-message">{emailError}</div>}
 
                     <div className="input-group mb-3">
-                      <span className="input-group-text inputfield" id="basic-addon1">
+                      <span className="input-group-text inputfield">
                         <FontAwesomeIcon icon={faLock} />
                       </span>
                       <div>
@@ -119,34 +115,26 @@ const Login = () => {
                           className="inputfield2"
                           placeholder="Password"
                           onChange={handlePassword}
-                          aria-describedby="basic-addon1"
-                          required
                         />
                         <div
                           className="eyebtn2"
                           onClick={() => setVisible(!visible)}
                           role="button"
-                          aria-label={visible ? "Hide password" : "Show password"}
                         >
                           {visible ? <FontAwesomeIcon icon={faEye} /> : <FontAwesomeIcon icon={faEyeSlash} />}
                         </div>
                       </div>
                     </div>
-                    {/* Display password error message below the password input */}
                     {passwordError && <div className="error-message">{passwordError}</div>}
                   </div>
-                  <Button
-                    className="loginbtn"
-                    type="submit"
-                  >
+                  <Button className="loginbtn" type="submit">
                     Login
                   </Button>
                 </Form>
-                {/* Display any general error message */}
                 {errorMessage && <div className="error-message">{errorMessage}</div>}
                 <p>
                   Don't have an account?{" "}
-                  <span className="linkitem" onClick={navigatetosignin}>
+                  <span className="linkitem" onClick={() => navigate('/')}>
                     Sign Up
                   </span>
                 </p>

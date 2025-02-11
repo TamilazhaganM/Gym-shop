@@ -64,7 +64,7 @@ function Navlist() {
           <Navbar.Brand href="#home">
             <Image
               src={require('../../assets/logo.png')}
-              className="logoimage1"
+              className="logoimage2"
               onClick={gohome}
             ></Image>
           </Navbar.Brand>

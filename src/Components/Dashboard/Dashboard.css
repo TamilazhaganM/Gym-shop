@@ -1,0 +1,77 @@
+h2{
+    font-size: x-large;
+    text-align: left;
+    margin: 30px;
+}
+.admin{
+    margin: 0%;
+}
+.navbar2{
+position: relative;
+}
+.admintable{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(51, 185, 185);
+    height: 100vh;
+    text-align: center;
+    padding: 0%;
+}
+.admintable h1{
+    background-color: rgb(32, 122, 122);
+    color: white;
+    padding: 10px;
+}
+.searchbox{
+    width: 70%;
+}.searchbtn{
+    width: 20%;
+}
+.dashbtn{
+    color: white;
+    margin-top: 20px;
+    border: none;
+    background-color: transparent;
+    font-size: larger;
+    width: 100%;
+    text-align: left;
+}
+button:hover{
+    background-color: white;
+    color:rgb(51, 185, 185) ;
+}
+.logoimage1{
+    width: 50px;
+    height: 40px;
+}
+.dashcontainer{
+    display: flex;
+    justify-content: space-between;
+}
+.dashbox{
+    width: 250px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    border-radius: 20px;
+}
+.dashbox p{
+    font-size: larger;
+    padding: 5px;
+}
+.dashbox h3{
+    text-align: center;
+}
+.dashimg{
+    margin-top: 20px;
+}
+.dashimg1{
+    width: 70%;
+    height: 95%;
+}
+.dashimg2{
+    width: 50%;
+    height: 95%;
+}

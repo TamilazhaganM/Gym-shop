@@ -1,0 +1,20 @@
+.programbtn1{
+    width: 30%;
+    margin-right: 10px;
+    background-color: green;
+    border-radius: 5px;
+    border: none;
+}
+.programbtn1:hover{
+background-color: lightgreen;
+}
+.programbtn2{
+    width: 30%;
+    margin-right: 10px;
+    background-color: red;
+    border-radius: 5px;
+    border: none;
+}
+.programbtn2:hover{
+    background-color: rgb(236, 118, 97);
+    }

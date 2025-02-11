@@ -8,7 +8,7 @@ const Workout = () => {
 
   return (
     <div id="workOutPage">
-      <h2>Workout Facility</h2>
+      <h2 className="workhead">Workout Facility</h2>
       <div className="workoutWrapper">
         <Container>
           {isMobileView ? (

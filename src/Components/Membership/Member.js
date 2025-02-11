@@ -16,7 +16,7 @@ const Member = () => {
             <Col lg={4} md={12}>
               <Card className="cards" style={{ width: "18rem" }}>
                 <Card.Text className="card-Title">New Member Trial</Card.Text>
-                <Card.Title className="card-Title">Rs.100</Card.Title>
+                <Card.Title className="card-Title">Rs.1000</Card.Title>
                 <Card.Body>
                   <Card.Text className="card-texttt">
                     Try us out! Sign up for a new member trial and discover the

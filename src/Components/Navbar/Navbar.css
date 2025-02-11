@@ -2,7 +2,10 @@
     margin: 0%;
 }
 .navbar{
-    background-color: hsla(180, 10%, 90%, 0.664);
+    background-color: white;
+    position: fixed;
+    z-index: 20000;
+    width: 100%;
 }
 .menuitems{
     margin-right: 40px;
@@ -14,15 +17,24 @@
 .menuitems:hover{
     color:#D65A31;
 }
-.logoimage1{
-    width: 120px;
-    height: 80px;
+.logoimage2{
+    width: 100px;
+    height: 60px;
     border-radius: 10px;
 }
 @media (max-width:992px) {
     .cardcomponent{
         display: flex;
         justify-content: center;
+    }
+    .navbar{
+        background-color:#fa8109 ;
+        position: fixed;
+        z-index: 20000;
+        width: 100%;
+    }
+    .menuitems:hover{
+        color:white;
     }
     
 }
