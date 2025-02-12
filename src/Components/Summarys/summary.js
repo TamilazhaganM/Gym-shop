@@ -83,9 +83,9 @@ const Summarypage = () => {
         description: 'Test Transaction',
         order_id: response.data.id,
         handler: function (paymentResponse) {
-          alert(`Payment ID: ${paymentResponse.razorpay_payment_id}`);
-          alert(`Order ID: ${paymentResponse.razorpay_order_id}`);
-          alert(`Signature: ${paymentResponse.razorpay_signature}`);
+          // alert(`Payment ID: ${paymentResponse.razorpay_payment_id}`);
+          // alert(`Order ID: ${paymentResponse.razorpay_order_id}`);
+          // alert(`Signature: ${paymentResponse.razorpay_signature}`);
           setShow(true); // Show the modal on successful payment
         },
         prefill: {
@@ -152,9 +152,9 @@ const Summarypage = () => {
               {error && <p className="error-text">{error}</p>} {/* Display error */}
               {member ? (
                 <div className="detailsdiv">
-                  <p className="summarypara">Name: {member.name}</p>
-                  <p className="summarypara">Email: {member.mail}</p>
-                  <p className="summarypara">City: {member.place}</p>
+                  <p className="summarypara">Name   : {member.name}</p>
+                  <p className="summarypara">Email : {member.mail}</p>
+                  <p className="summarypara">City : {member.place}</p>
                   <p className="summarypara">Phone: {member.mobile}</p>
                   <p className="summarypara">Package: {member.membership}</p>
                 </div>

@@ -43,7 +43,7 @@ app.post("/login", async (req, res) => {
   try {
     console.log("🔍 Connecting to database...");
     let database = await dbo();
-    const collection = database.collection("users");
+    const collection = database.collection("Registers");
 
     console.log("🔍 Searching for user:", email);
     const user = await collection.findOne({ email });
