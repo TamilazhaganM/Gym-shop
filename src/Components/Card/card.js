@@ -1,27 +1,32 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ProgramContext } from "../Program/Program";
+import { memberContext } from "../Membership/Member"; // Import memberContext
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import Badge from "react-bootstrap/Badge"; // Import Badge component
+import Badge from "react-bootstrap/Badge";
 import Orders from "../Orders/orders";
 import { useNavigate } from "react-router-dom";
 
 const Card = () => {
-  const { order } = useContext(ProgramContext); // Access `order` state from context
+  const { order } = useContext(ProgramContext); 
+  const { memberorder } = useContext(memberContext); // Get membership orders
   const navigate = useNavigate();
   const [show, setShow] = React.useState(false);
+  
+  // Compute total items (programs + memberships)
+  const totalItems = order.length + memberorder.length; 
 
   useEffect(() => {
-    if (order.length === 0) {
-      console.log("No programs selected yet!");
+    if (totalItems === 0) {
+      console.log("No items selected yet!");
     } else {
-      console.log("Programs in cart:", order);
+      console.log("Cart updated:", totalItems);
     }
-  }, [order]);
+  }, [totalItems]);
 
   const handleSummary = () => {
-    setShow(false); // Hide the Offcanvas
-    navigate('/ordersummary'); // Navigate to summary page
+    setShow(false);
+    navigate('/ordersummary');
   };
 
   return (
@@ -36,12 +41,9 @@ const Card = () => {
         onClick={() => setShow(!show)}
         className="me-2"
       >
-        <i
-          className="bi bi-cart4"
-          style={{ fontSize: "1.5rem", textAlign: "center" }}
-        ></i>
-        {/* Show badge only if there are items in the cart */}
-        {order.length > 0 && (
+        <i className="bi bi-cart4" style={{ fontSize: "1.5rem", textAlign: "center" }}></i>
+        {/* Show badge with total items (programs + memberships) */}
+        {totalItems > 0 && (
           <Badge
             bg="danger"
             style={{
@@ -52,13 +54,13 @@ const Card = () => {
               borderRadius: "50%",
             }}
           >
-            {order.length}
+            {totalItems}
           </Badge>
         )}
       </Button>
       <Offcanvas show={show} onHide={() => setShow(!show)} placement="end">
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>You are Ready To Sweat</Offcanvas.Title>
+          <Offcanvas.Title>Your Selections</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Orders />

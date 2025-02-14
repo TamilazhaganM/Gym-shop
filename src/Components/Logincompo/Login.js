@@ -52,7 +52,7 @@ const Login = () => {
           const { role } = response.data.user;
   
           if (role === "admin") {                                                                                                                                       
-            navigate("/admin-dashboard");
+            navigate("/admin/Dashboard");
           } else {
             navigate("/home");
           }

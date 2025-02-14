@@ -3,8 +3,15 @@ import './Addmemb.css'
 import { Button, Col, Container, Row } from 'react-bootstrap'
 import { Form } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const Addmemb = () => {
+  const [user,setUser]=useState("")
+  const [email,setEmail]=useState("")
+  const [city,setCity]=useState("")
+  const [phone,setPhone]=useState("")
+  const [gender,setGender]=useState("")
+  const [packages,setPackages]=useState("")
   const navigate=useNavigate()
         function Dashboard(){
             navigate('/Admin/Dashboard')
@@ -28,22 +35,63 @@ const Addmemb = () => {
   } function Mealplanner  (){
     navigate('/Meal-planner')
   }
-        const [formData, setFormData] = useState({
-          name: "",
-          email: "",
-          phone: "",
-          gender: "",
-          membership: "",
-        });
+        // const [formData, setFormData] = useState({
+        //   name: "",
+        //   email: "",
+        //   phone: "",
+        //   city:"",
+        //   gender: "",
+        //   packages: "",
+        // });
       
-        const handleChange = (e) => {
-          setFormData({ ...formData, [e.target.name]: e.target.value });
-        };
-      
-        const handleSubmit = (e) => {
+        const handleSubmit = async (e) => {
           e.preventDefault();
-          console.log("Gym Member Added:", formData);
-          alert("Member Added Successfully!");
+          const name = user.trim();
+          const mail = email.trim();
+          const place = city.trim();
+          const mobile = phone.trim();
+          const genders = gender.trim();
+          const membership=packages.trim();
+
+          if (!user) {
+            alert("Please Enter Your Name");
+            return;
+          }
+      
+          if (!/^\S+@\S+\.\S+$/.test(email)) {
+            alert("Please enter a valid email address");
+            return;
+          }
+      
+          if (!place) {
+            alert("Please Enter Your city");
+            return;
+          }
+          if (!/^\d{10}$/.test(mobile)) {
+            alert("Please enter a valid 10-digit mobile number");
+            return;
+          }
+          if(!genders){
+            alert("Select the Gender")
+            return;
+          }
+          if(!membership){
+            alert("Select the Membership")
+            return
+          }
+          try {
+            const response= await axios.post("https://gym-shop-khhw.onrender.com/customerAdd",{
+              name,
+              mail,
+              place,
+              mobile,
+              genders,
+              membership
+            })
+            console.log("Response from Add member:",response.data)
+          } catch (error) {
+            console.error("Error during  Adding member:", error);
+          }
         };
   return (
     <div>
@@ -82,8 +130,8 @@ const Addmemb = () => {
                 type="text"
                 placeholder="Enter Name"
                 name="name"
-                value={formData.name}
-                onChange={handleChange}
+                value={user}
+                onChange={(e)=>setUser(e.target.value)}
                 required
               />
             </Form.Group>
@@ -95,8 +143,8 @@ const Addmemb = () => {
                 type="email"
                 placeholder="Enter Email"
                 name="email"
-                value={formData.email}
-                onChange={handleChange}
+                value={email}
+                onChange={(e)=>setEmail(e.target.value)}
                 required
               />
             </Form.Group>
@@ -111,8 +159,8 @@ const Addmemb = () => {
                 type="tel"
                 placeholder="Enter Phone Number"
                 name="phone"
-                value={formData.phone}
-                onChange={handleChange}
+                value={phone}
+                onChange={(e)=>setPhone(e.target.value)}
                 required
               />
             </Form.Group>
@@ -124,8 +172,8 @@ const Addmemb = () => {
                 type="text"
                 placeholder="Enter City"
                 name="City"
-                value={formData.City}
-                onChange={handleChange}
+                value={city}
+                onChange={(e)=>setCity(e.target.value)}
                 required
               />
             </Form.Group>
@@ -135,8 +183,8 @@ const Addmemb = () => {
               <Form.Label  style={{color:"rgb(51, 185, 185)",fontSize:"large"}}>Gender</Form.Label>
               <Form.Select
                 name="gender"
-                value={formData.gender}
-                onChange={handleChange}
+                value={gender}
+                onChange={(e)=>setGender(e.target.value)}
                 required
               >
                 <option value="">Select Gender</option>
@@ -151,8 +199,8 @@ const Addmemb = () => {
           <Form.Label  style={{color:"rgb(51, 185, 185)",fontSize:"large"}}>Membership Type</Form.Label>
           <Form.Select
             name="membership"
-            value={formData.membership}
-            onChange={handleChange}
+            value={packages}
+            onChange={(e)=>setPackages(e.target.value)}
             required
           >
             <option value="">Select Membership</option>

@@ -7,11 +7,15 @@ import Navbar from "react-bootstrap/Navbar";
 import { Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { ProgramContext } from "../Program/Program"; // Import ProgramContext
+import { ProgramContext } from "../Program/Program"; 
+import { memberContext } from "../Membership/Member";
 
 function Navlist() {
   const navigate = useNavigate();
-  const { order } = useContext(ProgramContext); // Get order from context
+  const { order } = useContext(ProgramContext);
+  const { memberorder } = useContext(memberContext); 
+  const totalItems = order.length + memberorder.length;  
+
 
   // Navigation functions
   function handleHome() {
@@ -82,8 +86,8 @@ function Navlist() {
             <Nav.Link className="menuitems" as={Link} to="/login">Log In <i className="bi bi-person-circle"></i></Nav.Link>
                   {/* Conditionally render the Card component based on order */}
                   <div className="cardcomponent">
-                  {order.length >= 0 && (
-          <Card />
+                  {totalItems>0 && (
+          <Card totalItems={totalItems} />
       )}
                   </div>
            

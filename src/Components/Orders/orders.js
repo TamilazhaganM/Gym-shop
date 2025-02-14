@@ -1,39 +1,65 @@
-import React, { useContext } from 'react';
-import ListGroup from 'react-bootstrap/ListGroup';
-import { ProgramContext } from '../Program/Program.js';
+import React, { useContext } from "react";
+import { ProgramContext } from "../Program/Program";
+import { memberContext } from "../Membership/Member";
+import { Container, Row, Col, Card } from "react-bootstrap";
+import "./Order.css"
 
-const Orders = () => {
-  const { order, setOrders } = useContext(ProgramContext); // Get order and setOrders from context
-
-  // Function to handle removing an order
-  const handleRemove = (index) => {
-    const updatedOrder = order.filter((_, i) => i !== index);
-    setOrders(updatedOrder); // Update the context with the new order
-  };
-  console.log(order)
+const Order = () => {
+  const { order } = useContext(ProgramContext);
+  const { memberorder } = useContext(memberContext);
 
   return (
-    <div>
-      <h2 style={{marginBottom:'0px'}}>SELECTED PROGRAMS</h2>
-      <ListGroup as="ol" numbered>
-        {order.map((item, index) => (
-          <ListGroup.Item
-            as="li"
-            key={index}
-            className="d-flex justify-content-between align-items-start"
-            onClick={() => handleRemove(index)} // Handle item click to remove it
-            style={{ cursor: 'pointer' }} // Add a pointer cursor to indicate clickable items
-          >
-            <div className="ms-2 me-auto">
-              <div className="fw-bold">{item.name}</div>
-              Price: Rs.{item.price}/Month
-            </div>
-            <img src={item.image} alt={item.name} style={{ width: '50px', height: '50px' }} />
-          </ListGroup.Item>
-        ))}
-      </ListGroup>
-    </div>
+    <Container className="order-container">
+      <h2 className="order-title">Your Orders</h2>
+
+      {/* Display Program Orders */}
+      {order.length > 0 && (
+        <div className="order-section">
+          <h3>Selected Programs</h3>
+          <Row>
+            {order.map((program, index) => (
+              <Col key={index} lg={6} md={6} sm={12} className="mb-4">
+                <Card className="order-card">
+                <div>
+                <Card.Img variant="top" src={program.image} className="order-img" />
+                  <Card.Body>
+                    <Card.Title>{program.name}</Card.Title>
+                    <Card.Text>Price: Rs.{program.price}</Card.Text>
+                  </Card.Body>
+                </div>
+                  
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </div>
+      )}
+
+      {/* Display Member Orders */}
+      {memberorder.length > 0 && (
+        <div className="order-section">
+          <h3>Selected Memberships</h3>
+          <Row>
+            {memberorder.map((member, index) => (
+              <Col key={index} lg={12} md={6} sm={12} className="mb-4">
+                <Card className="order-card">
+                  <Card.Body>
+                    <Card.Title>{member.title}</Card.Title>
+                    <Card.Text>Price: {member.amount}</Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </div>
+      )}
+
+      {/* Show message if no orders are placed */}
+      {order.length === 0 && memberorder.length === 0 && (
+        <p className="no-orders">No orders placed yet.</p>
+      )}
+    </Container>
   );
 };
 
-export default Orders;
+export default Order;

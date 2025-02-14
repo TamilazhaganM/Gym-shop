@@ -112,6 +112,22 @@ app.post('/member', async (req, res) => {
     res.status(500).json({ message: "Internal server error." });
   }
 });
+app.post("/customerAdd",async(req,res)=>{
+    const{name,mail,place,mobile,membership,genders}=req.body
+    console.log("🔹 customerAdd route is hit");
+    if (!name || !mail || !place || !mobile || !membership||!genders) {
+      return res.status(400).json({ message: "All fields are required." });
+    }
+  try {
+    let database= await dbo()
+    const collection=database.collection("members")
+    await collection.insertOne({ name, mail, place, mobile, membership,genders })
+    res.status(201).json({ message: "Member added successfully!" });
+  } catch (error) {
+    console.error("Member addition error:", error);
+    res.status(500).json({ message: "Internal server error." });
+  }
+})
 
 // Get Latest Member
 app.get('/latest-member', async (req, res) => {
