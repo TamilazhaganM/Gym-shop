@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Offcanvas, Button, Col, Container, Row,Image, Table } from 'react-bootstrap'
-import { FaBars } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import './Fees.css'
 
