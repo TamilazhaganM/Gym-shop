@@ -18,7 +18,7 @@ position: relative;
     padding: 0%;
 }
 .admintable h1{
-    background-color: rgb(32, 122, 122);
+    background-color:#fa8109;
     color: white;
     padding: 10px;
 }
@@ -64,14 +64,31 @@ button:hover{
 .dashbox h3{
     text-align: center;
 }
+.dashbox2{
+    width: 100%;
+}
 .dashimg{
-    margin-top: 20px;
+    margin-top: 20px
 }
 .dashimg1{
-    width: 70%;
-    height: 95%;
+    width: 65%;
+    height: 85%;
+    margin: 0 auto;
 }
 .dashimg2{
-    width: 50%;
-    height: 95%;
+    width: 65%;
+    height: 85%;
+    margin: 0 auto;
+}
+@media screen and (max-width:992px) {
+    .dashcontainer{
+        display: flex;
+        align-items:center;
+        gap: 10px;
+        flex-direction: column;
+    }
+    .dashbox2{
+        display: flex;
+        flex-direction: column;
+    }
 }

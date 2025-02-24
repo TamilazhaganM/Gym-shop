@@ -1,230 +1,234 @@
 import React, { useState } from 'react'
-import './Addmemb.css'
-import { Button, Col, Container, Row } from 'react-bootstrap'
-import { Form } from 'react-bootstrap'
+import { Offcanvas, Button, Col, Container, Row, Form, Image } from 'react-bootstrap'
+import { FaBars } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import './Addmemb.css'
 
 const Addmemb = () => {
-  const [user,setUser]=useState("")
-  const [email,setEmail]=useState("")
-  const [city,setCity]=useState("")
-  const [phone,setPhone]=useState("")
-  const [gender,setGender]=useState("")
-  const [packages,setPackages]=useState("")
-  const navigate=useNavigate()
-        function Dashboard(){
-            navigate('/Admin/Dashboard')
-        }
-        function Addmember (){
-            navigate('/Admin/Addmember')
-        }function Bills (){
-          navigate('/Admin/Bills')
-      } 
-        function Feepackage (){
-            navigate('/Admin/Fees-Package')
-        } function Adminprogramlist (){
-            navigate('/Admin/Admin-program')
-        }  function GymMember  (){
-          navigate('/Admin/Gym-members')
-      } function login  (){
-        navigate('/login')
-    }
-    function Settings  (){
-      navigate('/Admin/Settings')
-  } function Mealplanner  (){
-    navigate('/Meal-planner')
-  }
-        // const [formData, setFormData] = useState({
-        //   name: "",
-        //   email: "",
-        //   phone: "",
-        //   city:"",
-        //   gender: "",
-        //   packages: "",
-        // });
-      
-        const handleSubmit = async (e) => {
-          e.preventDefault();
-          const name = user.trim();
-          const mail = email.trim();
-          const place = city.trim();
-          const mobile = phone.trim();
-          const genders = gender.trim();
-          const membership=packages.trim();
+  const [show, setShow] = useState(false)
+  const [user, setUser] = useState("")
+  const [email, setEmail] = useState("")
+  const [city, setCity] = useState("")
+  const [phone, setPhone] = useState("")
+  const [gender, setGender] = useState("")
+  const [packages, setPackages] = useState("")
 
-          if (!user) {
-            alert("Please Enter Your Name");
-            return;
-          }
-      
-          if (!/^\S+@\S+\.\S+$/.test(email)) {
-            alert("Please enter a valid email address");
-            return;
-          }
-      
-          if (!place) {
-            alert("Please Enter Your city");
-            return;
-          }
-          if (!/^\d{10}$/.test(mobile)) {
-            alert("Please enter a valid 10-digit mobile number");
-            return;
-          }
-          if(!genders){
-            alert("Select the Gender")
-            return;
-          }
-          if(!membership){
-            alert("Select the Membership")
-            return
-          }
-          try {
-            const response= await axios.post("https://gym-shop-khhw.onrender.com/customerAdd",{
-              name,
-              mail,
-              place,
-              mobile,
-              genders,
-              membership
-            })
-            console.log("Response from Add member:",response.data)
-          } catch (error) {
-            console.error("Error during  Adding member:", error);
-          }
-        };
+  const navigate = useNavigate()
+
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    if (!user.trim()) {
+      alert("Please enter the member's name")
+      return
+    }
+
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      alert("Please enter a valid email address")
+      return
+    }
+
+    if (!city.trim()) {
+      alert("Please enter the city")
+      return
+    }
+
+    if (!/^\d{10}$/.test(phone)) {
+      alert("Please enter a valid 10-digit phone number")
+      return
+    }
+
+    if (!gender.trim()) {
+      alert("Please select the gender")
+      return
+    }
+
+    if (!packages.trim()) {
+      alert("Please select a membership package")
+      return
+    }
+
+    try {
+      const response = await axios.post("https://gym-shop-khhw.onrender.com/customerAdd", {
+        name: user,
+        mail: email,
+        place: city,
+        mobile: phone,
+        genders: gender,
+        membership: packages
+      })
+      console.log("Response from Add member:", response.data)
+      alert("Member added successfully!")
+    } catch (error) {
+      console.error("Error adding member:", error)
+    }
+  }
+
   return (
     <div>
-    <div>
-    <Row>   
-          <Col className="admintable" lg={2}>
-            <div>
-              <h1>Admin</h1>
-              <div>
-                <button className="dashbtn" onClick={Dashboard}>Dashboard</button>
-                <br></br>
-                <button className="dashbtn" onClick={Addmember}>Add Member</button>
-                <br></br>
-                <button className="dashbtn" onClick={Bills}>Bills</button>
-                <br></br>
-                <button className="dashbtn" onClick={Feepackage}>Fee Package</button>
-                <br></br>
-                <button className="dashbtn" onClick={Adminprogramlist}>Program list</button> <br></br>
-                <button className="dashbtn" onClick={GymMember}>Gym Members</button> <br></br>
-                <button className="dashbtn" onClick={Mealplanner}>Meal Planner</button> <br></br>
-                <button className="dashbtn" onClick={Settings}>Settings</button> <br></br>
-                <button className="dashbtn"onClick={login}>Logout</button> <br></br>
-
-              </div>
-            </div>
-          </Col>
-          <Col className='Addmembercol2'>
-          <Container className="mt-4">
-      <h2 className="text-center">Add Gym Member</h2>
-      <Form className='formtable' onSubmit={handleSubmit}>
-        <Row>
-          <Col md={6}>
-            <Form.Group className="mb-3">
-              <Form.Label style={{color:"rgb(51, 185, 185)",fontSize:"large"}}>Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Name"
-                name="name"
-                value={user}
-                onChange={(e)=>setUser(e.target.value)}
-                required
-              />
-            </Form.Group>
-          </Col>
-          <Col md={6}>
-            <Form.Group className="mb-3">
-              <Form.Label  style={{color:"rgb(51, 185, 185)", fontSize:"large"}}>Email</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter Email"
-                name="email"
-                value={email}
-                onChange={(e)=>setEmail(e.target.value)}
-                required
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-
-        <Row>
-          <Col md={6}>
-            <Form.Group className="mb-3">
-              <Form.Label  style={{color:"rgb(51, 185, 185)",fontSize:"large"}}>Phone</Form.Label>
-              <Form.Control
-                type="tel"
-                placeholder="Enter Phone Number"
-                name="phone"
-                value={phone}
-                onChange={(e)=>setPhone(e.target.value)}
-                required
-              />
-            </Form.Group>
-          </Col>
-          <Col md={6}>
-            <Form.Group className="mb-3">
-              <Form.Label style={{color:"rgb(51, 185, 185)",fontSize:"large"}}>City</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter City"
-                name="City"
-                value={city}
-                onChange={(e)=>setCity(e.target.value)}
-                required
-              />
-            </Form.Group>
-          </Col>
-          <Col md={6}>
-            <Form.Group className="mb-3">
-              <Form.Label  style={{color:"rgb(51, 185, 185)",fontSize:"large"}}>Gender</Form.Label>
-              <Form.Select
-                name="gender"
-                value={gender}
-                onChange={(e)=>setGender(e.target.value)}
-                required
-              >
-                <option value="">Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-              </Form.Select>
-            </Form.Group>
-          </Col>
-          <Col md={6}>
-          <Form.Group className="mb-3">
-          <Form.Label  style={{color:"rgb(51, 185, 185)",fontSize:"large"}}>Membership Type</Form.Label>
-          <Form.Select
-            name="membership"
-            value={packages}
-            onChange={(e)=>setPackages(e.target.value)}
-            required
-          >
-            <option value="">Select Membership</option>
-            <option value="Basic">1-Month Package-RS.1000</option>
-            <option value="Premium">6-Month Package-Rs.4000</option>
-            <option value="VIP">12-Month Package-Rs.6000</option>
-          </Form.Select>
-        </Form.Group>
-          </Col>
-          <Button style={{backgroundColor:"rgb(51, 185, 185" , border:"none", textAlign:"center",margin:"0 auto",width:"200px"}} type="submit">
-          Add Member
+      {/* Header with Logo and Menu Button for mobile */}
+      <div className="d-flex justify-content-between align-items-center d-lg-none header bg-dark ">
+      <Button variant="dark" className="menu-btn" onClick={handleShow}>
+          <FaBars />
         </Button>
-        </Row>
-
-        
-
+        <Image
+          src={require('../../assets/logo.png')}
+          alt="Logo"
+          className="img-fluid"
+          style={{ maxWidth: '80px', margin: '0 auto' }}
+        />
        
-      </Form>
-    </Container>
+      </div>
+
+      {/* Main Layout for screens above 992px */}
+      <Container fluid>
+        <Row>
+          {/* Sidebar for larger screens */}
+          <Col lg={2} className="d-none d-lg-block text-white admintable">
+            <h1>Admin</h1>
+            <button className="dashbtn" onClick={() => navigate('/Admin/Dashboard')}>Dashboard</button>
+            <button className="dashbtn" onClick={() => navigate('/Admin/Addmember')}>Add Member</button>
+            <button className="dashbtn" onClick={() => navigate('/Admin/Bills')}>Bills</button>
+            <button className="dashbtn" onClick={() => navigate('/Admin/Fees-Package')}>Fee Package</button>
+            <button className="dashbtn" onClick={() => navigate('/Admin/Admin-program')}>Program list</button>
+            <button className="dashbtn" onClick={() => navigate('/Admin/Gym-members')}>Gym Members</button>
+            <button className="dashbtn" onClick={() => navigate('/Meal-planner')}>Meal Planner</button>
+            <button className="dashbtn" onClick={() => navigate('/Admin/Settings')}>Settings</button>
+            <button className="dashbtn" onClick={() => navigate('/login')}>Logout</button>
           </Col>
-          </Row>
+
+          {/* Form Section */}
+          <Col xs={12} lg={10}>
+            <h2 className="text-center">Add Gym Member</h2>
+            <Form className="formtable" onSubmit={handleSubmit}>
+              <Row>
+                <Col md={6}>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Name:</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter Name"
+                      value={user}
+                      onChange={(e) => setUser(e.target.value)}
+                      required
+                    />
+                  </Form.Group>
+                </Col>
+
+                <Col md={6}>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Email:</Form.Label>
+                    <Form.Control
+                      type="email"
+                      placeholder="Enter Email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+
+              <Row>
+                <Col md={6}>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Phone:</Form.Label>
+                    <Form.Control
+                      type="tel"
+                      placeholder="Enter Phone Number"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      required
+                    />
+                  </Form.Group>
+                </Col>
+
+                <Col md={6}>
+                  <Form.Group className="mb-3">
+                    <Form.Label>City:</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter City"
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
+                      required
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+
+              <Row>
+                <Col md={6}>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Gender:</Form.Label>
+                    <Form.Select
+                      value={gender}
+                      onChange={(e) => setGender(e.target.value)}
+                      required
+                    >
+                      <option value="">Select Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
+                    </Form.Select>
+                  </Form.Group>
+                </Col>
+
+                <Col md={6}>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Membership Type:</Form.Label>
+                    <Form.Select
+                      value={packages}
+                      onChange={(e) => setPackages(e.target.value)}
+                      required
+                    >
+                      <option value="">Select Membership</option>
+                      <option value="1-Month Package-RS.1000">1-Month Package - RS.1000</option>
+                      <option value="6-Month Package-Rs.4000">6-Month Package - Rs.4000</option>
+                      <option value="1-Year Package-Rs.6000">1-Year Package - Rs.6000</option>
+                    </Form.Select>
+                  </Form.Group>
+                </Col>
+              </Row>
+              <div style={{width:"250px", margin: '10px auto'}}> <Button
+                style={{ backgroundColor: "#222831", border: "none", textAlign: "center", margin: "0 auto", width: "200px" }}
+                type="submit"
+              >
+                Add Member
+              </Button></div>
+             
+            </Form>
+          </Col>
+        </Row>
+      </Container>
+
+      {/* Offcanvas Sidebar for mobile */}
+      <Offcanvas show={show} onHide={handleClose} backdrop="true">
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>
+          </Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <div className='admintable'>
+            <h3>Admin</h3>
+            <button className="dashbtn" onClick={() => navigate('/Admin/Dashboard')}>Dashboard</button>
+            <button className="dashbtn" onClick={() => navigate('/Admin/Addmember')}>Add Member</button>
+            <button className="dashbtn" onClick={() => navigate('/Admin/Bills')}>Bills</button>
+            <button className="dashbtn" onClick={() => navigate('/Admin/Fees-Package')}>Fee Package</button>
+            <button className="dashbtn" onClick={() => navigate('/Admin/Admin-program')}>Program list</button>
+            <button className="dashbtn" onClick={() => navigate('/Admin/Gym-members')}>Gym Members</button>
+            <button className="dashbtn" onClick={() => navigate('/Meal-planner')}>Meal Planner</button>
+            <button className="dashbtn" onClick={() => navigate('/Admin/Settings')}>Settings</button>
+            <button className="dashbtn" onClick={() => navigate('/login')}>Logout</button>
+          </div>
+        </Offcanvas.Body>
+      </Offcanvas>
     </div>
-        
-    </div>
-)}
+  )
+}
 
 export default Addmemb

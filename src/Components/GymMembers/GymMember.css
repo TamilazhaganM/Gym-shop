@@ -1,0 +1,18 @@
+.table-input{
+    width: 150px; /* Set a fixed width */
+    padding: 5px;
+    font-size: 14px;
+}
+.programbtn1{
+    width: max-content;
+}
+.programbtn2{
+    width: max-content;
+}
+.admintable{
+    display: flex;
+    flex-direction: column;
+    background-color: #fa8109;
+    height: 100vh;
+    text-align: center;
+}

@@ -1,86 +1,155 @@
-import React from 'react'
-import { Col, Row, Table } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { Col, Row, Table, Offcanvas, Button, Image } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { Pencil, TrashFill, Check, List } from "react-bootstrap-icons";
+import './GymMember.css';
 
 const GymMember = () => {
-    const navigate=useNavigate()
-             function Dashboard(){
-                 navigate('/Admin/Dashboard')
-             }
-             function Addmember (){
-                 navigate('/Admin/Addmember')
-             }function Bills (){
-               navigate('/Admin/Bills')
-           } 
-             function Feepackage (){
-                 navigate('/Admin/Fees-Package')
-             } function Adminprogramlist (){
-                 navigate('/Admin/Admin-program')
-             }  function GymMember  (){
-               navigate('/Admin/Gym-members')
-           } function login  (){
-             navigate('/login')
-         }
-         function Settings  (){
-           navigate('/Admin/Settings')
-       } function Mealplanner  (){
-         navigate('/Meal-planner')
-       }
+  const [members, setMembers] = useState([]);
+  const [editIndex, setEditIndex] = useState(null);
+  const [editData, setEditData] = useState({});
+  const [showSidebar, setShowSidebar] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchMembers = async () => {
+      try {
+        const response = await axios.get("https://gym-shop-khhw.onrender.com/Gym-members");
+        setMembers(response.data);
+      } catch (error) {
+        console.error("Error fetching gym members:", error);
+      }
+    };
+    fetchMembers();
+  }, []);
+
+  const handleEdit = (index, member) => {
+    setEditIndex(index);
+    setEditData(member);
+  };
+
+  const handleSave = async () => {
+    try {
+      const response = await axios.put(
+        `https://gym-shop-khhw.onrender.com/Gym-members/${editData._id}`,
+        editData
+      );
+      if (response.status === 200) {
+        const updatedMembers = [...members];
+        updatedMembers[editIndex] = editData;
+        setMembers(updatedMembers);
+        setEditIndex(null);
+      }
+    } catch (error) {
+      console.error("Error updating member:", error);
+    }
+  };
+
+  const handleDelete = async (index, id) => {
+    try {
+      const response = await axios.delete(`https://gym-shop-khhw.onrender.com/Gym-members/${id}`);
+      if (response.status === 200) {
+        const updatedResponse = await axios.get("https://gym-shop-khhw.onrender.com/Gym-members");
+        setMembers(updatedResponse.data);
+      }
+    } catch (error) {
+      console.error("Error deleting member:", error);
+    }
+  };
+
   return (
     <div>
-        <div>
-            <Row>
-            <Col className="admintable" lg={2}>
-            <div>
-              <h1>Admin</h1>
-              <div>
-                <button className="dashbtn" onClick={Dashboard}>Dashboard</button>
-                <br></br>
-                <button className="dashbtn" onClick={Addmember}>Add Member</button>
-                <br></br>
-                <button className="dashbtn" onClick={Bills}>Bills</button>
-                <br></br>
-                <button className="dashbtn" onClick={Feepackage}>Fee Package</button>
-                <br></br>
-                <button className="dashbtn" onClick={Adminprogramlist}>Program list</button> <br></br>
-                <button className="dashbtn" onClick={GymMember}>Gym Members</button> <br></br>
-                <button className="dashbtn" onClick={Mealplanner}>Meal Planner</button> <br></br>
-                <button className="dashbtn" onClick={Settings}>Settings</button> <br></br>
-                <button className="dashbtn"onClick={login}>Logout</button> <br></br>
-
-              </div>
-            </div>
-          </Col>
-          <Col>
-            <h3>Gym Members List</h3>
-            <Table striped="columns">
-      <thead>
-        <tr>
-          <th>S.No</th>
-          <th>NAME</th>
-          <th>EMAIL</th>
-          <th>MOBILE</th>
-          <th>CITY</th>
-          <th>OPTIONS</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Tamil</td>
-          <td>tamil@gmail.com</td>
-          <td>1234567890</td>
-          <td>Chennai</td>
-          <td><button className='programbtn1'><i class="bi bi-check-lg"></i></button><button className='programbtn2'><i class="bi bi-trash-fill"></i></button></td>
-        </tr>
-       
-      </tbody>
-    </Table>
-          </Col>
-            </Row>
+      {/* Responsive Navbar */}
+      <div className="d-flex align-items-center justify-content-between d-lg-none mb-3" style={{ background: "#fa8109", padding: '10px' }}>
+        <Button variant="outline-dark" onClick={() => setShowSidebar(true)}>
+          <List /> Menu
+        </Button>
+        <div className="flex-grow-1 text-center">
+          <Image src={require("../../assets/logo.png")} alt="Logo" style={{ height: '40px' }} />
         </div>
-    </div>
-  )
-}
+      </div>
 
-export default GymMember
+      {/* Offcanvas Sidebar for mobile */}
+      <Offcanvas className="admintable" show={showSidebar} onHide={() => setShowSidebar(false)} placement="start">
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Admin</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          {['Dashboard', 'Addmember', 'Bills', 'Fees-Package', 'Admin-program', 'Gym-members', 'Meal-planner', 'Settings'].map((route) => (
+            <button key={route} className="dashbtn" onClick={() => navigate(`/Admin/${route}`)}>
+              {route.replace('-', ' ')}
+            </button>
+          ))}
+          <button className="dashbtn" onClick={() => navigate('/login')}>Logout</button>
+        </Offcanvas.Body>
+      </Offcanvas>
+
+      <Row>
+        {/* Sidebar for large screens */}
+        <Col lg={2} className="d-none d-lg-block sidebar-menu admintable">
+          <h1>Admin</h1>
+          {['Dashboard', 'Addmember', 'Bills', 'Fees-Package', 'Admin-program', 'Gym-members', 'Meal-planner', 'Settings'].map((route) => (
+            <button key={route} className="dashbtn" onClick={() => navigate(`/Admin/${route}`)}>
+              {route.replace('-', ' ')}
+            </button>
+          ))}
+          <button className="dashbtn" onClick={() => navigate('/login')}>Logout</button>
+        </Col>
+
+        {/* Main Content */}
+        <Col lg={10} style={{ background: "linear-gradient(to bottom,#dce1de,#ced3ce)" }}>
+          <h3>Gym Members List</h3>
+
+          {/* Responsive Table */}
+          <div className="table-responsive">
+            <Table striped bordered>
+              <thead>
+                <tr>
+                  <th>S.No</th>
+                  <th>NAME</th>
+                  <th>EMAIL</th>
+                  <th>MOBILE</th>
+                  <th>CITY</th>
+                  <th>PACKAGE</th>
+                  <th>OPTIONS</th>
+                </tr>
+              </thead>
+              <tbody>
+                {members.map((member, index) => (
+                  <tr key={member._id}>
+                    <td>{index + 1}</td>
+                    {['name', 'mail', 'mobile', 'place', 'membership'].map((field) => (
+                      <td key={field}>
+                        {editIndex === index ? (
+                          <input
+                            type={field === 'mail' ? 'email' : 'text'}
+                            value={editData[field] || ''}
+                            onChange={(e) => setEditData({ ...editData, [field]: e.target.value })}
+                            className="table-input"
+                          />
+                        ) : (
+                          member[field] || '-'
+                        )}
+                      </td>
+                    ))}
+                    <td>
+                      {editIndex === index ? (
+                        <button className='programbtn1' onClick={handleSave}><Check /></button>
+                      ) : (
+                        <button className='programbtn1' onClick={() => handleEdit(index, member)}><Pencil /></button>
+                      )}
+                      <button className='programbtn2' onClick={() => handleDelete(index, member._id)}><TrashFill /></button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
+        </Col>
+      </Row>
+    </div>
+  );
+};
+
+export default GymMember;

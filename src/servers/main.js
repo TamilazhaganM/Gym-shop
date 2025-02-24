@@ -3,6 +3,10 @@ import dbo from "./Database/db.js";
 import Razorpay from 'razorpay';
 import cors from "cors";
 import dotenv from "dotenv";
+<<<<<<< HEAD
+=======
+import { ObjectId } from "mongodb";
+>>>>>>> 7bdc170 (update and delete operation)
 
 dotenv.config();
 const app = express();
@@ -145,6 +149,68 @@ app.get('/latest-member', async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+<<<<<<< HEAD
+=======
+app.get("/Gym-members",async(req,res)=>{
+  try {
+    let database=await dbo()
+    const GymMember=database.collection('members')
+    const members=await GymMember.find({}).toArray();
+    res.json(members)
+
+  } catch (error) {
+    console.error("Error fetching gym members:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+})
+// Update Member (PUT)
+app.put('/Gym-members/:id', async (req, res) => {
+  const { id } = req.params;
+  const { name, mail, place, mobile, membership } = req.body;
+
+  try {
+    let database = await dbo();
+    const collection = database.collection("members");
+
+    const result = await collection.updateOne(
+      { _id: new ObjectId(id) },
+      { $set: { name, mail, place, mobile, membership } }
+    );
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({ message: "Member not found." });
+    }
+
+    res.status(200).json({ message: "Member updated successfully!" });
+  } catch (error) {
+    console.error("Update error:", error);
+    res.status(500).json({ message: "Internal server error." });
+  }
+});
+
+// Delete Member (DELETE)
+app.delete('/Gym-members/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    console.log("Received ID:", id);
+    console.log("ObjectId imported:", ObjectId);
+    let database = await dbo();
+    const collection = database.collection("members");
+    const result = await collection.deleteOne({ _id: new ObjectId(id) });
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: "Member not found." });
+    }
+
+    res.status(200).json({ message: "Member deleted successfully!" });
+  } catch (error) {
+    console.error("Delete error:", error);
+    res.status(500).json({ message: "Interna server error." });
+  }
+});
+
+>>>>>>> 7bdc170 (update and delete operation)
 
 // Database Test Route
 app.get('/test-db', async (req, res) => {
