@@ -31,7 +31,7 @@ const Adminprogram = () => {
       {/* Menubar for screens less than 992px */}
       <div className="d-flex align-items-center justify-content-between d-lg-none mb-3" style={{ background: "#fa8109", padding: '10px' }}>
   <Button variant="outline-dark" onClick={() => setShowSidebar(true)}>
-    <List /> Menu
+    <List /> 
   </Button>
   <div className="flex-grow-1 text-center">
     <Image src={require('../../assets/logo.png')} alt="Logo" style={{ height: '40px' }} />

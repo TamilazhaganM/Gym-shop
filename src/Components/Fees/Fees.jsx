@@ -14,7 +14,7 @@ const Fees = () => {
     <div>
       {/* Header with Logo and Menu Button for mobile */}
       <div className="d-flex justify-content-between align-items-center d-lg-none p-2 header bg-dark">
-        <Button variant="dark" className="menu-btn" onClick={handleShow}>
+        <Button variant="light" className="menu-btn" onClick={handleShow}>  ☰
         </Button>
         <Image
           src={require('../../assets/logo.png')}

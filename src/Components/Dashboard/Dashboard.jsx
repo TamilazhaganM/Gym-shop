@@ -142,7 +142,7 @@ const Dashboard = () => {
                   aria-label="Search"
                 />
                 <Button className="searchbtn my-auto" variant="outline-light">
-                  Search
+                <i className="bi bi-search"></i>
                 </Button>
               </Form>
               <Nav className="justify-content-center w-100 text-center">
